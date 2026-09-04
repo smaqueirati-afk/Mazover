@@ -17,7 +17,7 @@ export default function SiteFooter({
         <div className="foot-top">
           <div>
             <Link href="/" className="logo foot-brand" style={{ color: "#fff" }}>
-              <BrandMark size={38} />
+              <BrandMark size={40} />
               <span className="logo-txt">
                 <span className="logo-word">{settings.brand_name}</span>
                 <span className="logo-tag">{settings.brand_tagline}</span>

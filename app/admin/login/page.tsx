@@ -66,7 +66,7 @@ export default function AdminLogin() {
     <div className="adm-login">
       <div className="adm-login-card">
         <div className="logo" style={{ color: "var(--azul-profundo)", justifyContent: "center", marginBottom: 24 }}>
-          <BrandMark size={42} disc />
+          <BrandMark size={48} disc />
           <span className="logo-txt">
             <span className="logo-word">MAZOVER</span>
             <span className="logo-tag">Panel de administración</span>

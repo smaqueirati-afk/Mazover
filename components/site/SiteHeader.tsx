@@ -11,7 +11,7 @@ import BrandMark from "./BrandMark";
 function Logo({ brand, tagline }: { brand: string; tagline: string }) {
   return (
     <Link href="/" className="logo" style={{ color: "inherit" }} aria-label={brand}>
-      <BrandMark size={38} />
+      <BrandMark size={40} />
       <span className="logo-txt">
         <span className="logo-word">{brand}</span>
         <span className="logo-tag">{tagline}</span>
