@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { MenuItem, Settings } from "@/lib/types";
 import { cn, menuHref } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
@@ -70,9 +70,19 @@ export default function SiteHeader({
   settings: Settings;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const overlay = pathname === "/";
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState(false);
+  const [q, setQ] = useState("");
   const { count } = useCart();
+
+  function submitSearch(e: React.FormEvent) {
+    e.preventDefault();
+    const term = q.trim();
+    setSearch(false);
+    router.push(term ? `/productos?q=${encodeURIComponent(term)}` : "/productos");
+  }
 
   return (
     <header className={cn("nav", !overlay && "solid")}>
@@ -96,7 +106,7 @@ export default function SiteHeader({
         </ul>
 
         <div className="nav-icons">
-          <Link href="/productos" aria-label="Buscar"><IconSearch /></Link>
+          <button aria-label="Buscar" onClick={() => setSearch((s) => !s)}><IconSearch /></button>
           <Link href="/admin" aria-label="Cuenta"><IconUser /></Link>
           <Link href="/carrito" aria-label="Carrito" style={{ position: "relative" }}>
             <IconBag />
@@ -107,6 +117,24 @@ export default function SiteHeader({
           </button>
         </div>
       </div>
+
+      {/* Buscador */}
+      {search && (
+        <div className="nav-search">
+          <form className="wrap" onSubmit={submitSearch} style={{ display: "flex", gap: 12, alignItems: "center", padding: "16px clamp(20px,5vw,72px)" }}>
+            <IconSearch />
+            <input
+              autoFocus
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder="Buscar jeans, cortes, colores…"
+              aria-label="Buscar"
+              style={{ flex: 1, background: "transparent", border: 0, outline: "none", color: "#fff", fontSize: 18, fontFamily: "var(--oswald)", letterSpacing: ".04em" }}
+            />
+            <button type="button" aria-label="Cerrar" onClick={() => setSearch(false)} style={{ background: "none", border: 0, color: "rgba(255,255,255,.7)", cursor: "pointer", fontSize: 18 }}>✕</button>
+          </form>
+        </div>
+      )}
 
       {/* Drawer mobile a pantalla completa */}
       {open && (

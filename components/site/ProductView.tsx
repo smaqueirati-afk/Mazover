@@ -1,6 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import type { Product, Settings, ProductColor } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
@@ -73,7 +74,7 @@ export default function ProductView({
       {/* GALERÍA */}
       <div className="gallery">
         <div className="gallery-main" onClick={() => mainImg && setLightbox(true)}>
-          {mainImg && <img src={mainImg} alt={`${product.name} — ${color?.name}`} />}
+          {mainImg && <Image src={mainImg} alt={`${product.name} — ${color?.name}`} fill priority sizes="(max-width:880px) 100vw, 55vw" style={{ objectFit: "cover" }} />}
           {images.length > 1 && (
             <div className="gallery-nav">
               <button aria-label="Anterior" onClick={(e) => { e.stopPropagation(); setGi((g) => (g - 1 + images.length) % images.length); }}>‹</button>

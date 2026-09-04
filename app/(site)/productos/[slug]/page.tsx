@@ -38,8 +38,27 @@ export default async function ProductPage({
   ]);
   if (!product) notFound();
 
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const inStock = product.colors.some((c) => c.variants.some((v) => v.stock > 0));
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.short_description ?? product.description ?? undefined,
+    image: product.colors.flatMap((c) => c.images.map((i) => (i.url.startsWith("http") ? i.url : `${base}${i.url}`))).slice(0, 6),
+    brand: { "@type": "Brand", name: settings.brand_name },
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: settings.currency,
+      availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      url: `${base}/productos/${product.slug}`,
+    },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <nav className="wrap" style={{ paddingTop: 108, fontFamily: "var(--oswald)", fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--gris)" }} aria-label="Breadcrumb">
         <Link href="/">Inicio</Link> / <Link href="/productos">Colección</Link> / <span style={{ color: "var(--azul-profundo)" }}>{product.name}</span>
       </nav>

@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
 
@@ -19,7 +19,9 @@ export default function ProductCard({ p, symbol }: { p: Product; symbol: string 
         ) : p.is_bestseller ? (
           <span className="badge">Best seller</span>
         ) : null}
-        {p.cover_url && <img src={p.cover_url} alt={p.name} loading="lazy" />}
+        {p.cover_url && (
+          <Image src={p.cover_url} alt={p.name} fill sizes="(max-width:880px) 50vw, 33vw" style={{ objectFit: "cover" }} />
+        )}
       </Link>
       <div className="prod-info">
         <div>

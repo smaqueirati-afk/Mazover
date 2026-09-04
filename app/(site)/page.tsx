@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import Image from "next/image";
 import { getContent, getSettings, getFeaturedProducts, getReels } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/lib/types";
@@ -19,7 +20,7 @@ function ProductEditorial({ p, variant, symbol }: { p: Product; variant: "a" | "
       <Link href={`/productos/${p.slug}`} className="prod-media">
         {p.is_new && <span className="badge">Nuevo</span>}
         {!p.is_new && p.is_bestseller && <span className="badge">Best seller</span>}
-        {p.cover_url && <img src={p.cover_url} alt={p.name} />}
+        {p.cover_url && <Image src={p.cover_url} alt={p.name} fill sizes="(max-width:880px) 100vw, 40vw" style={{ objectFit: "cover" }} />}
       </Link>
       <div className="prod-info">
         <div>
@@ -74,7 +75,7 @@ export default async function HomePage() {
         </div>
         <div className="hero-media">
           {t("home.hero.badge") && <span className="red-tab">{t("home.hero.badge")}</span>}
-          {im("home.hero.image") && <img src={im("home.hero.image")} alt="Campaña MAZOVER" />}
+          {im("home.hero.image") && <Image src={im("home.hero.image")} alt="Campaña MAZOVER" fill priority sizes="(max-width:880px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition: "center 18%" }} />}
           <span className="hero-side"><span className="sol" />Otoño · Invierno</span>
         </div>
       </header>
@@ -109,7 +110,7 @@ export default async function HomePage() {
 
       {/* BANDA */}
       <section className="band">
-        {im("home.band.image") && <img src={im("home.band.image")} alt="Detalle de confección" />}
+        {im("home.band.image") && <Image src={im("home.band.image")} alt="Detalle de confección" fill sizes="100vw" style={{ objectFit: "cover", objectPosition: "center 15%" }} />}
         <div className="band-cap">
           <span className="eyebrow">{t("home.band.eyebrow")}</span>
           <h3>{t("home.band.title")}</h3>
@@ -159,7 +160,7 @@ export default async function HomePage() {
                 <a key={r.id} className="reel" href={href} target={r.product_slug ? undefined : "_blank"} rel="noopener noreferrer">
                   <span className="ig"><IgIcon s={19} /></span>
                   <span className="play"><svg viewBox="0 0 24 24" style={{ width: 18, height: 18, fill: "#fff" }}><path d="M8 5v14l11-7z" /></svg></span>
-                  {r.poster_url && <img src={r.poster_url} alt={r.caption ?? "Reel MAZOVER"} />}
+                  {r.poster_url && <Image src={r.poster_url} alt={r.caption ?? "Reel MAZOVER"} fill sizes="(max-width:880px) 50vw, 25vw" style={{ objectFit: "cover" }} />}
                   {r.product_slug && <span className="tag">Ver producto</span>}
                   <span className="meta">
                     <span className="handle">{settings.instagram_handle}</span>

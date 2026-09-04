@@ -63,6 +63,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rojo); outline-
 .nav-icons svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; }
 .nav-burger { display: none; background: none; border: 0; color: inherit; cursor: pointer; }
 .nav-burger svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+.nav-search { position: absolute; top: 92px; left: 0; right: 0; background: var(--azul-profundo); border-top: 1px solid rgba(255,255,255,.1); border-bottom: 2px solid var(--rojo); z-index: 45; color: #fff; }
+.nav-search svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; opacity: .8; }
 
 /* ---- MEGA MENU ---- */
 .has-mega > a { display: inline-flex; align-items: center; gap: 6px; }
