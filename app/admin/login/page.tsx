@@ -3,7 +3,6 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import BrandMark from "@/components/site/BrandMark";
 
 const configured =
   !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -66,7 +65,7 @@ export default function AdminLogin() {
     <div className="adm-login">
       <div className="adm-login-card">
         <div className="logo" style={{ color: "var(--azul-profundo)", justifyContent: "center", marginBottom: 24 }}>
-          <BrandMark size={48} disc />
+          <span className="logo-badge">MAZOVER</span>
           <span className="logo-txt">
             <span className="logo-word">MAZOVER</span>
             <span className="logo-tag">Panel de administración</span>
