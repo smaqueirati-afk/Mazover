@@ -107,7 +107,7 @@ export default function SiteHeader({
 
         <div className="nav-icons">
           <button aria-label="Buscar" onClick={() => setSearch((s) => !s)}><IconSearch /></button>
-          <Link href="/admin" aria-label="Cuenta"><IconUser /></Link>
+          <Link href="/admin" aria-label="Cuenta" className="hide-mobile"><IconUser /></Link>
           <Link href="/carrito" aria-label="Carrito" style={{ position: "relative" }}>
             <IconBag />
             {count > 0 && <span className="cart-badge">{count}</span>}
