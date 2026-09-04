@@ -6,11 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 import type { MenuItem, Settings } from "@/lib/types";
 import { cn, menuHref } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
+import BrandMark from "./BrandMark";
 
 function Logo({ brand, tagline }: { brand: string; tagline: string }) {
   return (
     <Link href="/" className="logo" style={{ color: "inherit" }} aria-label={brand}>
-      <span className="logo-badge">{brand}</span>
+      <BrandMark size={38} />
       <span className="logo-txt">
         <span className="logo-word">{brand}</span>
         <span className="logo-tag">{tagline}</span>

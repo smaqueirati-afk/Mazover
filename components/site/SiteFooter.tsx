@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BrandMark from "./BrandMark";
 import type { Settings, ContentMap } from "@/lib/types";
 
 export default function SiteFooter({
@@ -16,7 +17,7 @@ export default function SiteFooter({
         <div className="foot-top">
           <div>
             <Link href="/" className="logo foot-brand" style={{ color: "#fff" }}>
-              <span className="logo-badge">{settings.brand_name}</span>
+              <BrandMark size={38} />
               <span className="logo-txt">
                 <span className="logo-word">{settings.brand_name}</span>
                 <span className="logo-tag">{settings.brand_tagline}</span>
