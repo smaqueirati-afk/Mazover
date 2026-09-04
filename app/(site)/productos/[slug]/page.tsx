@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProductBySlug, getSettings, getSizeGuide } from "@/lib/data";
+import { getProductBySlug, getSettings, getSizeGuide, getAllProducts } from "@/lib/data";
 import ProductView from "@/components/site/ProductView";
+import ProductCard from "@/components/site/ProductCard";
 
 export async function generateMetadata({
   params,
@@ -31,12 +32,17 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [product, settings, sizeGuide] = await Promise.all([
+  const [product, settings, sizeGuide, all] = await Promise.all([
     getProductBySlug(slug),
     getSettings(),
     getSizeGuide(),
+    getAllProducts(),
   ]);
   if (!product) notFound();
+
+  const sameCat = all.filter((p) => p.slug !== product.slug && p.category?.slug === product.category?.slug);
+  const others = all.filter((p) => p.slug !== product.slug && p.category?.slug !== product.category?.slug);
+  const related = [...sameCat, ...others].slice(0, 4);
 
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const inStock = product.colors.some((c) => c.variants.some((v) => v.stock > 0));
@@ -63,6 +69,19 @@ export default async function ProductPage({
         <Link href="/">Inicio</Link> / <Link href="/productos">Colección</Link> / <span style={{ color: "var(--azul-profundo)" }}>{product.name}</span>
       </nav>
       <ProductView product={product} settings={settings} sizeGuide={sizeGuide} />
+
+      {related.length > 0 && (
+        <section className="section coll">
+          <div className="wrap">
+            <div className="coll-head">
+              <div><span className="eyebrow">Seguí mirando</span><h2>También te puede gustar</h2></div>
+            </div>
+            <div className="grid-products">
+              {related.map((p) => <ProductCard key={p.id} p={p} symbol={settings.currency_symbol} />)}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
