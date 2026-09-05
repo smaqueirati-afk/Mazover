@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/utils";
 import { buildProductWhatsAppLink } from "@/lib/whatsapp";
 import { useCart } from "@/lib/cart";
 import FavButton from "./FavButton";
+import RestockButton from "./RestockButton";
 
 type SizeGuide = { name: string; columns: string[]; rows: string[][] } | null;
 
@@ -144,37 +145,48 @@ export default function ProductView({
             {variants.map((v) => (
               <button
                 key={v.id}
-                className={`size-btn ${sizeId === v.size_id ? "on" : ""}`}
-                disabled={v.stock <= 0}
+                className={`size-btn ${sizeId === v.size_id ? "on" : ""} ${v.stock <= 0 ? "soldout" : ""}`}
                 aria-pressed={sizeId === v.size_id}
-                title={v.stock <= 0 ? "Agotado" : `${v.stock} disponibles`}
+                title={v.stock <= 0 ? "Agotado — avisame cuando vuelva" : `${v.stock} disponibles`}
                 onClick={() => { setSizeId(v.size_id); setAdded(false); }}
               >
                 {v.size_label}
               </button>
             ))}
           </div>
-          {colorSoldOut(color!) && <p className="stock-note no">Color agotado</p>}
+          {colorSoldOut(color!) && <p className="stock-note no">Color agotado — dejanos tu contacto y te avisamos.</p>}
+          {!colorSoldOut(color!) && selectedVariant && stock <= 0 && (
+            <p className="stock-note no">Talle {selectedVariant.size_label} agotado — avisame cuando vuelva.</p>
+          )}
           {!colorSoldOut(color!) && selectedVariant && stock > 0 && stock <= 3 && (
             <p className="stock-note low">¡Últimas {stock} unidades!</p>
           )}
         </div>
 
         {/* ACCIONES */}
-        <div className="pdp-actions">
-          <button className="btn btn-ink" disabled={!selectedVariant || productSoldOut} onClick={handleAdd}>
-            {added ? "Agregado ✓" : "Agregar"}
-          </button>
-          <a
-            className="btn btn-primary"
-            href={waLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-disabled={productSoldOut}
-          >
-            Comprar por WhatsApp
-          </a>
-        </div>
+        {colorSoldOut(color!) || (selectedVariant && stock <= 0) ? (
+          <div className="pdp-actions">
+            <RestockButton
+              productName={product.name}
+              colorName={color?.name ?? ""}
+              sizeLabel={selectedVariant && stock <= 0 ? selectedVariant.size_label : ""}
+            />
+          </div>
+        ) : (
+          <div className="pdp-actions">
+            <button className="btn btn-ink" disabled={!selectedVariant} onClick={handleAdd}>
+              {added ? "Agregado ✓" : "Agregar"}
+            </button>
+            <a
+              className="btn btn-primary"
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Comprar por WhatsApp
+            </a>
+          </div>
+        )}
         {!selectedVariant && !productSoldOut && (
           <p className="stock-note">Elegí un talle para agregar o consultar.</p>
         )}
