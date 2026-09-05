@@ -568,7 +568,14 @@ insert into public.content_blocks (key, section, label, type, value, image_url, 
   ('home.specs.3.value','home_specs','Spec 3 · valor','text','Taller propio',null,6),
   ('home.specs.4.label','home_specs','Spec 4 · label','text','Origen',null,7),
   ('home.specs.4.value','home_specs','Spec 4 · valor','text','Argentina',null,8),
-  ('home.cta.hours','home_cta','CTA · horario','text','Respondemos de 9 a 19 h · Lun a sáb',null,4)
+  ('home.collection.link','home_collection','Colección · link','text','Ver toda la colección',null,3),
+  ('home.product.cta','home_collection','Card · botón','text','Ver producto',null,4),
+  ('home.product.cuotas','home_collection','Card · cantidad de cuotas','text','3',null,5),
+  ('home.reels.link','home_reels','Reels · link','text','Seguinos en Instagram',null,3),
+  ('home.cta.whatsapp','home_cta','CTA · botón WhatsApp','text','Comprar por WhatsApp',null,3),
+  ('home.cta.hours','home_cta','CTA · horario','text','Respondemos de 9 a 19 h · Lun a sáb',null,4),
+  ('product.ship.title','producto','Detalle · Envíos (título)','text','Envíos y cambios',null,1),
+  ('product.ship.body','producto','Detalle · Envíos (texto)','richtext','Coordinamos envíos a todo el país. Cambios dentro de los 30 días con la prenda sin uso. Consultanos por WhatsApp.',null,2)
 on conflict (key) do nothing;
 
 -- Ajustes de claves existentes (badge/cta) para el rediseño

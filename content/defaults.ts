@@ -80,8 +80,12 @@ export const defaultContent: ContentMap = {
   "home.band.image": c(null, "/demo/detail.jpg"),
   "home.collection.eyebrow": c("Colección destacada"),
   "home.collection.title": c("Cortes que se quedan"),
+  "home.collection.link": c("Ver toda la colección"),
+  "home.product.cta": c("Ver producto"),
+  "home.product.cuotas": c("3"),
   "home.reels.eyebrow": c("@mazover"),
   "home.reels.title": c("Mirá cómo se usan"),
+  "home.reels.link": c("Seguinos en Instagram"),
   "home.made.eyebrow": c("Hecho en Argentina"),
   "home.made.title": c("Diseñado acá. Fabricado acá. Seleccionado para durar."),
   "home.made.col1.title": c("Diseñado acá"),
@@ -105,9 +109,14 @@ export const defaultContent: ContentMap = {
   "home.cta.eyebrow": c("Comprá por WhatsApp"),
   "home.cta.title": c("Elegí tu corte. Nosotros hacemos el resto."),
   "home.cta.button": c("Ver la colección"),
+  "home.cta.whatsapp": c("Comprar por WhatsApp"),
   "home.cta.hours": c("Respondemos de 9 a 19 h · Lun a sáb"),
   "footer.about": c(
     "Denim diseñado y fabricado en Argentina. Calidad que se siente, orgullo que se viste."
+  ),
+  "product.ship.title": c("Envíos y cambios"),
+  "product.ship.body": c(
+    "Coordinamos envíos a todo el país. Cambios dentro de los 30 días con la prenda sin uso. Consultanos por WhatsApp."
   ),
 
   // --- Página LA MARCA ---

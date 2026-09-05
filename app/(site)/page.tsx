@@ -24,8 +24,8 @@ const featIcons = [
   <svg key="3" viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z" /><circle cx="12" cy="11" r="2.2" /></svg>,
 ];
 
-function ProductEditorial({ p, variant, symbol }: { p: Product; variant: "a" | "b"; symbol: string }) {
-  const cuota = Math.round(p.price / 3);
+function ProductEditorial({ p, variant, symbol, ctaLabel, cuotasN }: { p: Product; variant: "a" | "b"; symbol: string; ctaLabel: string; cuotasN: number }) {
+  const cuota = Math.round(p.price / cuotasN);
   return (
     <article className={`prod prod-${variant}`}>
       <Link href={`/productos/${p.slug}`} className="prod-media">
@@ -50,8 +50,8 @@ function ProductEditorial({ p, variant, symbol }: { p: Product; variant: "a" | "
             {p.compare_at_price && <span className="was">{formatPrice(p.compare_at_price, { currency_symbol: symbol })}</span>}
             {formatPrice(p.price, { currency_symbol: symbol })}
           </div>
-          <div className="prod-cuotas">3 cuotas de {formatPrice(cuota, { currency_symbol: symbol })}</div>
-          <Link href={`/productos/${p.slug}`} className="prod-cta">Ver producto <Arrow /></Link>
+          <div className="prod-cuotas">{cuotasN} cuotas de {formatPrice(cuota, { currency_symbol: symbol })}</div>
+          <Link href={`/productos/${p.slug}`} className="prod-cta">{ctaLabel} <Arrow /></Link>
         </div>
       </div>
     </article>
@@ -72,6 +72,8 @@ export default async function HomePage() {
   const marquee = t("home.marquee.items").split("|").filter(Boolean);
   const philoParas = t("home.philo.body").split("\n\n");
   const waLink = buildWhatsAppLink(settings, []);
+  const cuotasN = parseInt(t("home.product.cuotas"), 10) || 3;
+  const prodCta = t("home.product.cta") || "Ver producto";
 
   return (
     <>
@@ -165,12 +167,12 @@ export default async function HomePage() {
               <span className="eyebrow">{t("home.collection.eyebrow")}</span>
               <h2>{t("home.collection.title")}</h2>
             </div>
-            <Link className="coll-link" href="/productos">Ver toda la colección</Link>
+            <Link className="coll-link" href="/productos">{t("home.collection.link")}</Link>
           </div>
           {products.length > 0 ? (
             <div className="coll-editorial">
-              {products[0] && <ProductEditorial p={products[0]} variant="a" symbol={symbol} />}
-              {products[1] && <ProductEditorial p={products[1]} variant="b" symbol={symbol} />}
+              {products[0] && <ProductEditorial p={products[0]} variant="a" symbol={symbol} ctaLabel={prodCta} cuotasN={cuotasN} />}
+              {products[1] && <ProductEditorial p={products[1]} variant="b" symbol={symbol} ctaLabel={prodCta} cuotasN={cuotasN} />}
             </div>
           ) : (
             <p className="note">Todavía no hay productos destacados. Cargalos desde el panel.</p>
@@ -189,7 +191,7 @@ export default async function HomePage() {
             </div>
             {settings.instagram_url && (
               <a className="ig-link" href={settings.instagram_url} target="_blank" rel="noopener noreferrer">
-                Seguinos en Instagram <Arrow />
+                {t("home.reels.link")} <Arrow />
               </a>
             )}
           </div>
@@ -201,7 +203,7 @@ export default async function HomePage() {
                   <span className="ig"><IgIcon s={19} /></span>
                   <span className="play"><svg viewBox="0 0 24 24" style={{ width: 18, height: 18, fill: "#fff" }}><path d="M8 5v14l11-7z" /></svg></span>
                   {r.poster_url && <Image src={r.poster_url} alt={r.caption ?? "Reel MAZOVER"} fill sizes="(max-width:880px) 50vw, 25vw" style={{ objectFit: "cover" }} />}
-                  {r.product_slug && <span className="tag">Ver producto</span>}
+                  {r.product_slug && <span className="tag">{prodCta}</span>}
                   <span className="meta">
                     <span className="handle">{settings.instagram_handle}</span>
                     {r.caption && <span className="cap">{r.caption}</span>}
@@ -256,7 +258,7 @@ export default async function HomePage() {
             <h2>{t("home.cta.title")}</h2>
           </div>
           <div className="cta-actions">
-            <a className="btn wa-btn" href={waLink} target="_blank" rel="noopener noreferrer">Comprar por WhatsApp</a>
+            <a className="btn wa-btn" href={waLink} target="_blank" rel="noopener noreferrer">{t("home.cta.whatsapp")}</a>
             <Link className="btn btn-outline-ink" href="/productos">{t("home.cta.button")}</Link>
             <p className="cta-hours">{t("home.cta.hours")}</p>
           </div>
