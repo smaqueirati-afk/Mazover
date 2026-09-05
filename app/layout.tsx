@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Oswald, Montserrat } from "next/font/google";
 import "./globals.css";
 import { getSettings } from "@/lib/data";
+import SolDefs from "@/components/site/SolDefs";
 
 const oswald = Oswald({
   variable: "--font-oswald",
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es" className={`${oswald.variable} ${montserrat.variable}`}>
       <body>
         <style dangerouslySetInnerHTML={{ __html: colorVars }} />
+        <SolDefs />
         {children}
       </body>
     </html>

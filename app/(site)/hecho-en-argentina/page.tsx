@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getContent } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -66,7 +67,7 @@ export default async function HechoPage() {
         <div className="wrap">
           <span className="eyebrow">Orgullo que se viste</span>
           <h2>Un jean para años, no para una temporada.</h2>
-          <a className="btn btn-primary" href="/productos">Ver la colección</a>
+          <Link className="btn btn-primary" href="/productos">Ver la colección</Link>
         </div>
       </section>
     </>

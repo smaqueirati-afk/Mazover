@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getContent, getSettings, getFeaturedProducts, getReels } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
+import SolButton from "@/components/site/SolButton";
 import type { Product } from "@/lib/types";
 
 const Arrow = () => (
@@ -14,7 +16,16 @@ const IgIcon = ({ s = 16 }: { s?: number }) => (
   </svg>
 );
 
+// Iconos de la franja de features (stroke fino)
+const featIcons = [
+  <svg key="0" viewBox="0 0 24 24"><path d="M12 3c2 2 2 4 0 6-2-2-2-4 0-6zM12 9c2-2 4-2 6 0-2 2-4 2-6 0zM12 9c-2-2-4-2-6 0 2 2 4 2 6 0zM12 9v3M9 21h6l-1.5-6h-3z" /></svg>,
+  <svg key="1" viewBox="0 0 24 24"><path d="M7 3h10l1 18h-6l-.5-9h-1l-.5 9H4z" /><path d="M7 3l2 5M17 3l-2 5" /></svg>,
+  <svg key="2" viewBox="0 0 24 24"><path d="M3 21l9-9M14 10l4-4a3 3 0 1 0-4-4l-4 4" /><circle cx="16" cy="8" r="1" /></svg>,
+  <svg key="3" viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z" /><circle cx="12" cy="11" r="2.2" /></svg>,
+];
+
 function ProductEditorial({ p, variant, symbol }: { p: Product; variant: "a" | "b"; symbol: string }) {
+  const cuota = Math.round(p.price / 3);
   return (
     <article className={`prod prod-${variant}`}>
       <Link href={`/productos/${p.slug}`} className="prod-media">
@@ -39,7 +50,8 @@ function ProductEditorial({ p, variant, symbol }: { p: Product; variant: "a" | "
             {p.compare_at_price && <span className="was">{formatPrice(p.compare_at_price, { currency_symbol: symbol })}</span>}
             {formatPrice(p.price, { currency_symbol: symbol })}
           </div>
-          <Link href={`/productos/${p.slug}`} className="prod-cta">Ver <Arrow /></Link>
+          <div className="prod-cuotas">3 cuotas de {formatPrice(cuota, { currency_symbol: symbol })}</div>
+          <Link href={`/productos/${p.slug}`} className="prod-cta">Ver producto <Arrow /></Link>
         </div>
       </div>
     </article>
@@ -59,26 +71,42 @@ export default async function HomePage() {
   const symbol = settings.currency_symbol;
   const marquee = t("home.marquee.items").split("|").filter(Boolean);
   const philoParas = t("home.philo.body").split("\n\n");
+  const waLink = buildWhatsAppLink(settings, []);
 
   return (
     <>
       {/* HERO */}
       <header className="hero">
         <div className="hero-copy">
-          <span className="eyebrow"><span className="sol" />{t("home.hero.eyebrow")}</span>
-          <h1 className="hero-title">{t("home.hero.title")}</h1>
+          {t("home.hero.badge") && <span className="hero-new">{t("home.hero.badge")}</span>}
+          <h1 className="hero-title">
+            <span className="l1">{t("home.hero.title_1")}</span>
+            <span className="l2">{t("home.hero.title_2")}</span>
+          </h1>
+          <div className="hero-kicker">{t("home.hero.kicker")}</div>
+          <div className="hero-rule"><span className="bar" /><SolButton size={30} /><span className="bar" /></div>
           <p className="hero-sub">{t("home.hero.subtitle")}</p>
           <div className="hero-cta">
-            <Link className="btn btn-primary" href="/productos">{t("home.hero.cta1")}</Link>
+            <Link className="btn-red" href="/productos">{t("home.hero.cta1")}</Link>
             <Link className="btn btn-outline" href="/la-marca">{t("home.hero.cta2")}</Link>
           </div>
         </div>
         <div className="hero-media">
-          {t("home.hero.badge") && <span className="red-tab">{t("home.hero.badge")}</span>}
-          {im("home.hero.image") && <Image src={im("home.hero.image")} alt="Campaña MAZOVER" fill priority sizes="(max-width:880px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition: "center 18%" }} />}
-          <span className="hero-side"><span className="sol" />Otoño · Invierno</span>
+          {im("home.hero.image") && <Image src={im("home.hero.image")} alt="Campaña MAZOVER" fill priority sizes="(max-width:880px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition: "center top" }} />}
+        </div>
+        <div className="hero-features">
+          {[1, 2, 3, 4].map((n, i) => (
+            <div className="hero-feature" key={n}>
+              {featIcons[i]}
+              <div>
+                <div className="t">{t(`home.features.${n}.title`)}</div>
+                <div className="b">{t(`home.features.${n}.body`)}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </header>
+      <div className="hero-bar" />
 
       {/* MARQUEE */}
       <div className="marquee">
@@ -86,7 +114,7 @@ export default async function HomePage() {
           {marquee.map((item, i) => (
             <span key={item} style={{ display: "contents" }}>
               <span className="txt">{item}</span>
-              {i < marquee.length - 1 && <span className="sol" />}
+              {i < marquee.length - 1 && <SolButton size={13} />}
             </span>
           ))}
         </div>
@@ -101,7 +129,7 @@ export default async function HomePage() {
             {philoParas.map((para, i) => <p key={i}>{para}</p>)}
           </div>
           <div className="philo-media">
-            <div className="badge-sol"><span className="sol" /></div>
+            <div className="badge-sol"><SolButton size={38} /></div>
             {im("home.philo.image") && <img className="main" src={im("home.philo.image")} alt="Textura de denim" />}
             {im("home.philo.detail") && <img className="detail" src={im("home.philo.detail")} alt="Detalle de confección" style={{ objectPosition: "20% 80%" }} />}
           </div>
@@ -114,6 +142,18 @@ export default async function HomePage() {
         <div className="band-cap">
           <span className="eyebrow">{t("home.band.eyebrow")}</span>
           <h3>{t("home.band.title")}</h3>
+        </div>
+      </section>
+
+      {/* SPECS */}
+      <section className="specs">
+        <div className="wrap specs-inner">
+          {[1, 2, 3, 4].map((n) => (
+            <div className="spec" key={n}>
+              <div className="l">{t(`home.specs.${n}.label`)}</div>
+              <div className="v">{t(`home.specs.${n}.value`)}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -200,20 +240,26 @@ export default async function HomePage() {
       {/* FRASES */}
       <section className="frases">
         <div className="wrap">
-          <div className="line"><span className="sol" /><h3>{t("home.frases.1")}</h3><span className="sol" /></div>
+          <div className="line"><SolButton size={20} /><h3>{t("home.frases.1")}</h3><SolButton size={20} /></div>
           <div className="hr" />
           <div className="line"><h3>{t("home.frases.2")}</h3></div>
           <div className="hr" />
-          <div className="line"><span className="sol" /><h3>{t("home.frases.3")}</h3><span className="sol" /></div>
+          <div className="line"><SolButton size={20} /><h3>{t("home.frases.3")}</h3><SolButton size={20} /></div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="foot-cta">
-        <div className="wrap">
-          <span className="eyebrow">{t("home.cta.eyebrow")}</span>
-          <h2>{t("home.cta.title")}</h2>
-          <Link className="btn btn-primary" href="/productos">{t("home.cta.button")}</Link>
+        <div className="wrap cta-grid">
+          <div>
+            <span className="eyebrow">{t("home.cta.eyebrow")}</span>
+            <h2>{t("home.cta.title")}</h2>
+          </div>
+          <div className="cta-actions">
+            <a className="btn wa-btn" href={waLink} target="_blank" rel="noopener noreferrer">Comprar por WhatsApp</a>
+            <Link className="btn btn-outline-ink" href="/productos">{t("home.cta.button")}</Link>
+            <p className="cta-hours">{t("home.cta.hours")}</p>
+          </div>
         </div>
       </section>
     </>
