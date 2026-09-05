@@ -48,8 +48,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rojo); outline-
 .logo { display: flex; align-items: stretch; gap: 11px; }
 .logo-badge { background: var(--rojo-vivo); color: #fff; display: flex; align-items: center; justify-content: center; padding: 0 6px; font-family: var(--oswald); font-weight: 600; font-size: 12px; letter-spacing: .16em; writing-mode: vertical-rl; transform: rotate(180deg); }
 .logo-txt { display: flex; flex-direction: column; justify-content: center; gap: 5px; }
-.logo-word { font-family: var(--oswald); font-weight: 700; font-size: 38px; letter-spacing: .055em; line-height: .82; color: #F4F7FA; }
-.logo-tag { display: flex; align-items: center; gap: 8px; font-family: var(--oswald); font-weight: 500; font-size: 12.5px; letter-spacing: .225em; color: rgba(244,247,250,.72); }
+.logo-word { font-family: var(--oswald); font-weight: 700; font-size: 38px; letter-spacing: .055em; line-height: .82; color: currentColor; }
+.logo-tag { display: flex; align-items: center; gap: 8px; font-family: var(--oswald); font-weight: 500; font-size: 12.5px; letter-spacing: .225em; color: currentColor; opacity: .72; }
 .logo-tag::before, .logo-tag::after { content: ""; height: 1px; width: 14px; background: currentColor; opacity: .4; }
 
 /* ---- NAV ---- */
