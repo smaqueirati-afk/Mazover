@@ -43,7 +43,7 @@ export default function Catalog({
     (k) => params[k as keyof CatalogParams]
   ).length;
 
-  const Filters = () => (
+  const filtersEl = () => (
     <div className="filters">
       <FilterGroup title="Categoría">
         {options.categories.map((o) => (
@@ -112,7 +112,7 @@ export default function Catalog({
       </div>
 
       <div className="catalog-layout">
-        <aside className="catalog-aside"><Filters /></aside>
+        <aside className="catalog-aside">{filtersEl()}</aside>
         <div>
           {filtered.length > 0 ? (
             <div className="grid-products">
@@ -134,7 +134,7 @@ export default function Catalog({
               <h3>Filtros</h3>
               <button aria-label="Cerrar" onClick={() => setDrawer(false)} className="drawer-x">✕</button>
             </div>
-            <Filters />
+            {filtersEl()}
             <button className="btn btn-primary drawer-apply" onClick={() => setDrawer(false)}>
               Ver {filtered.length} producto{filtered.length !== 1 ? "s" : ""}
             </button>

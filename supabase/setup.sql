@@ -547,6 +547,41 @@ Trabajamos con talleres argentinos, algodón seleccionado y una confección obse
   ('footer.about',        'footer',    'Footer · descripción', 'text',  'Denim diseñado y fabricado en Argentina. Calidad que se siente, orgullo que se viste.', null, 1)
 on conflict (key) do nothing;
 
+-- Rediseño visual v2: hero (títulos/kicker), franja de features, especificaciones y horario CTA
+insert into public.content_blocks (key, section, label, type, value, image_url, position) values
+  ('home.hero.title_1','home_hero','Hero · título línea 1','text','Por siempre',null,20),
+  ('home.hero.title_2','home_hero','Hero · título línea 2','text','Argentinas',null,21),
+  ('home.hero.kicker','home_hero','Hero · kicker','text','Orgullo que se viste',null,22),
+  ('home.features.1.title','home_features','Feature 1 · título','text','Algodón premium',null,1),
+  ('home.features.1.body','home_features','Feature 1 · texto','text','Suave y resistente',null,2),
+  ('home.features.2.title','home_features','Feature 2 · título','text','Corte clásico y cómodo',null,3),
+  ('home.features.2.body','home_features','Feature 2 · texto','text','Para todos los días',null,4),
+  ('home.features.3.title','home_features','Feature 3 · título','text','Bordado de calidad',null,5),
+  ('home.features.3.body','home_features','Feature 3 · texto','text','Detalles que duran',null,6),
+  ('home.features.4.title','home_features','Feature 4 · título','text','Hecho en Argentina',null,7),
+  ('home.features.4.body','home_features','Feature 4 · texto','text','Diseñado y producido con orgullo',null,8),
+  ('home.specs.1.label','home_specs','Spec 1 · label','text','Denim',null,1),
+  ('home.specs.1.value','home_specs','Spec 1 · valor','text','14.5 oz rígido',null,2),
+  ('home.specs.2.label','home_specs','Spec 2 · label','text','Composición',null,3),
+  ('home.specs.2.value','home_specs','Spec 2 · valor','text','100% algodón',null,4),
+  ('home.specs.3.label','home_specs','Spec 3 · label','text','Confección',null,5),
+  ('home.specs.3.value','home_specs','Spec 3 · valor','text','Taller propio',null,6),
+  ('home.specs.4.label','home_specs','Spec 4 · label','text','Origen',null,7),
+  ('home.specs.4.value','home_specs','Spec 4 · valor','text','Argentina',null,8),
+  ('home.collection.link','home_collection','Colección · link','text','Ver toda la colección',null,3),
+  ('home.product.cta','home_collection','Card · botón','text','Ver producto',null,4),
+  ('home.product.cuotas','home_collection','Card · cantidad de cuotas','text','3',null,5),
+  ('home.reels.link','home_reels','Reels · link','text','Seguinos en Instagram',null,3),
+  ('home.cta.whatsapp','home_cta','CTA · botón WhatsApp','text','Comprar por WhatsApp',null,3),
+  ('home.cta.hours','home_cta','CTA · horario','text','Respondemos de 9 a 19 h · Lun a sáb',null,4),
+  ('product.ship.title','producto','Detalle · Envíos (título)','text','Envíos y cambios',null,1),
+  ('product.ship.body','producto','Detalle · Envíos (texto)','richtext','Coordinamos envíos a todo el país. Cambios dentro de los 30 días con la prenda sin uso. Consultanos por WhatsApp.',null,2)
+on conflict (key) do nothing;
+
+-- Ajustes de claves existentes (badge/cta) para el rediseño
+update public.content_blocks set value='Nuevo' where key='home.hero.badge';
+update public.content_blocks set value='Ver colección' where key='home.hero.cta1';
+
 -- Página LA MARCA y HECHO EN ARGENTINA
 insert into public.content_blocks (key, section, label, type, value, image_url, position) values
   ('lamarca.hero.eyebrow','page_lamarca','La Marca · bajada','text','La marca',null,1),
@@ -723,9 +758,10 @@ begin
       values (m,root,'Jean Relaxed Índigo','product','jean-relaxed','/demo/lifestyle.jpg','Destacado',1);
     -- items de primer nivel adicionales
     insert into public.menu_items (menu_id, label, link_type, link_ref, position) values
-      (m,'Jeans','category','jeans',2),
-      (m,'La Marca','page','la-marca',3),
-      (m,'Hecho en Argentina','page','hecho-en-argentina',4);
+      (m,'Inicio','url','/',0),
+      (m,'Nosotros','page','la-marca',2),
+      (m,'Guía de talles','url','/productos',3),
+      (m,'Contacto','url','https://wa.me/5491100000000',4);
   end if;
 end $$;
 

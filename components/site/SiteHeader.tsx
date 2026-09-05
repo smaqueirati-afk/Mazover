@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { MenuItem, Settings } from "@/lib/types";
 import { cn, menuHref } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
+import SolButton from "./SolButton";
 
 function Logo({ brand, tagline }: { brand: string; tagline: string }) {
   return (
@@ -39,7 +40,7 @@ function Mega({ item }: { item: MenuItem }) {
       <div className="mega-inner">
         {[...columns.entries()].map(([group, items]) => (
           <div className="mega-col" key={group}>
-            <h5><span className="sol" />{group}</h5>
+            <h5><SolButton size={11} />{group}</h5>
             {items.map((c) => (
               <Link key={c.id} href={menuHref(c)}>{c.label}</Link>
             ))}
@@ -71,7 +72,8 @@ export default function SiteHeader({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const overlay = pathname === "/";
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href.split("?")[0]);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(false);
   const [q, setQ] = useState("");
@@ -85,7 +87,7 @@ export default function SiteHeader({
   }
 
   return (
-    <header className={cn("nav", !overlay && "solid")}>
+    <header className="nav">
       <div className="wrap nav-inner">
         <Logo brand={settings.brand_name} tagline={settings.brand_tagline} />
 
@@ -93,14 +95,14 @@ export default function SiteHeader({
           {menu.map((item) =>
             item.children.length > 0 ? (
               <li key={item.id} className="has-mega">
-                <Link href={menuHref(item)}>
+                <Link href={menuHref(item)} className={cn(isActive(menuHref(item)) && "on")}>
                   {item.label}
                   <svg className="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
                 </Link>
                 <Mega item={item} />
               </li>
             ) : (
-              <li key={item.id}><Link href={menuHref(item)}>{item.label}</Link></li>
+              <li key={item.id}><Link href={menuHref(item)} className={cn(isActive(menuHref(item)) && "on")}>{item.label}</Link></li>
             )
           )}
         </ul>

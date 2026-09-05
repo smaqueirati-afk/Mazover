@@ -28,6 +28,7 @@ export default function ReelsCrud({ rows, products }: { rows: Reel[]; products: 
     setUploading(true); setMsg(null);
     try {
       const supabase = createClient();
+      // eslint-disable-next-line react-hooks/purity -- Date.now() en event handler (subida), no en render
       const path = `reels/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_")}`;
       const { error } = await supabase.storage.from("content").upload(path, file);
       if (error) throw error;

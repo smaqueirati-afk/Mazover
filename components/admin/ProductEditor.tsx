@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { AdminProduct } from "@/lib/admin";
 import {
-  upsertProductInfo, deleteProduct, addColor, updateColor, deleteColor,
+  upsertProductInfo, deleteProduct, addColor, deleteColor,
   saveStock, attachImage, deleteImage, setCover, type ActionState,
 } from "@/app/admin/(panel)/productos/actions";
 
@@ -230,6 +230,7 @@ function ImagesPanel({ product }: { product: AdminProduct }) {
     setErr(null); setUploading(colorId);
     try {
       const supabase = createClient();
+      // eslint-disable-next-line react-hooks/purity -- Date.now() en event handler (subida), no en render
       const path = `${product.id}/${colorId}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_")}`;
       const { error } = await supabase.storage.from("products").upload(path, file, { upsert: false });
       if (error) throw error;

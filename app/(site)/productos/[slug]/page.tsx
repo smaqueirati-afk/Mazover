@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProductBySlug, getSettings, getSizeGuide, getAllProducts } from "@/lib/data";
+import { getProductBySlug, getSettings, getSizeGuide, getAllProducts, getContent } from "@/lib/data";
 import ProductView from "@/components/site/ProductView";
 import ProductCard from "@/components/site/ProductCard";
 
@@ -32,13 +32,16 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [product, settings, sizeGuide, all] = await Promise.all([
+  const [product, settings, sizeGuide, all, content] = await Promise.all([
     getProductBySlug(slug),
     getSettings(),
     getSizeGuide(),
     getAllProducts(),
+    getContent(),
   ]);
   if (!product) notFound();
+  const shipTitle = content["product.ship.title"]?.value ?? "Envíos y cambios";
+  const shipBody = content["product.ship.body"]?.value ?? "Coordinamos envíos a todo el país. Cambios dentro de los 30 días con la prenda sin uso. Consultanos por WhatsApp.";
 
   const sameCat = all.filter((p) => p.slug !== product.slug && p.category?.slug === product.category?.slug);
   const others = all.filter((p) => p.slug !== product.slug && p.category?.slug !== product.category?.slug);
@@ -68,7 +71,7 @@ export default async function ProductPage({
       <nav className="wrap" style={{ paddingTop: 108, fontFamily: "var(--oswald)", fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--gris)" }} aria-label="Breadcrumb">
         <Link href="/">Inicio</Link> / <Link href="/productos">Colección</Link> / <span style={{ color: "var(--azul-profundo)" }}>{product.name}</span>
       </nav>
-      <ProductView product={product} settings={settings} sizeGuide={sizeGuide} />
+      <ProductView product={product} settings={settings} sizeGuide={sizeGuide} shipTitle={shipTitle} shipBody={shipBody} />
 
       {related.length > 0 && (
         <section className="section coll">

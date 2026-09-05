@@ -14,10 +14,14 @@ export default function ProductView({
   product,
   settings,
   sizeGuide,
+  shipTitle,
+  shipBody,
 }: {
   product: Product;
   settings: Settings;
   sizeGuide: SizeGuide;
+  shipTitle: string;
+  shipBody: string;
 }) {
   const { add } = useCart();
   const [colorIdx, setColorIdx] = useState(0);
@@ -186,8 +190,8 @@ export default function ProductView({
             </details>
           )}
           <details>
-            <summary>Envíos y cambios <span>+</span></summary>
-            <p>Coordinamos envíos a todo el país. Cambios dentro de los 30 días con la prenda sin uso. Consultanos por WhatsApp.</p>
+            <summary>{shipTitle} <span>+</span></summary>
+            <p>{shipBody}</p>
           </details>
         </div>
       </div>

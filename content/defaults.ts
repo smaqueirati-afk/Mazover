@@ -39,13 +39,32 @@ const c = (value: string | null, image_url: string | null = null) => ({ value, i
 export const defaultContent: ContentMap = {
   "home.hero.eyebrow": c("Hecho y para argentinos"),
   "home.hero.title": c("Calidad que se siente."),
+  "home.hero.title_1": c("Por siempre"),
+  "home.hero.title_2": c("Argentinas"),
+  "home.hero.kicker": c("Orgullo que se viste"),
   "home.hero.subtitle": c(
     "Jeans diseñados y fabricados en Argentina, con materiales seleccionados y una obsesión por cada detalle. Para tu día a día."
   ),
-  "home.hero.cta1": c("Descubrir colección"),
+  "home.hero.cta1": c("Ver colección"),
   "home.hero.cta2": c("Conocer la marca"),
-  "home.hero.badge": c("Nueva colección"),
+  "home.hero.badge": c("Nuevo"),
   "home.hero.image": c(null, "/demo/hero.jpg"),
+  "home.features.1.title": c("Algodón premium"),
+  "home.features.1.body": c("Suave y resistente"),
+  "home.features.2.title": c("Corte clásico y cómodo"),
+  "home.features.2.body": c("Para todos los días"),
+  "home.features.3.title": c("Bordado de calidad"),
+  "home.features.3.body": c("Detalles que duran"),
+  "home.features.4.title": c("Hecho en Argentina"),
+  "home.features.4.body": c("Diseñado y producido con orgullo"),
+  "home.specs.1.label": c("Denim"),
+  "home.specs.1.value": c("14.5 oz rígido"),
+  "home.specs.2.label": c("Composición"),
+  "home.specs.2.value": c("100% algodón"),
+  "home.specs.3.label": c("Confección"),
+  "home.specs.3.value": c("Taller propio"),
+  "home.specs.4.label": c("Origen"),
+  "home.specs.4.value": c("Argentina"),
   "home.marquee.items": c(
     "Algodón premium|Confort|Durabilidad|Diseño atemporal|Orgullo argentino"
   ),
@@ -61,8 +80,12 @@ export const defaultContent: ContentMap = {
   "home.band.image": c(null, "/demo/detail.jpg"),
   "home.collection.eyebrow": c("Colección destacada"),
   "home.collection.title": c("Cortes que se quedan"),
+  "home.collection.link": c("Ver toda la colección"),
+  "home.product.cta": c("Ver producto"),
+  "home.product.cuotas": c("3"),
   "home.reels.eyebrow": c("@mazover"),
   "home.reels.title": c("Mirá cómo se usan"),
+  "home.reels.link": c("Seguinos en Instagram"),
   "home.made.eyebrow": c("Hecho en Argentina"),
   "home.made.title": c("Diseñado acá. Fabricado acá. Seleccionado para durar."),
   "home.made.col1.title": c("Diseñado acá"),
@@ -86,8 +109,14 @@ export const defaultContent: ContentMap = {
   "home.cta.eyebrow": c("Comprá por WhatsApp"),
   "home.cta.title": c("Elegí tu corte. Nosotros hacemos el resto."),
   "home.cta.button": c("Ver la colección"),
+  "home.cta.whatsapp": c("Comprar por WhatsApp"),
+  "home.cta.hours": c("Respondemos de 9 a 19 h · Lun a sáb"),
   "footer.about": c(
     "Denim diseñado y fabricado en Argentina. Calidad que se siente, orgullo que se viste."
+  ),
+  "product.ship.title": c("Envíos y cambios"),
+  "product.ship.body": c(
+    "Coordinamos envíos a todo el país. Cambios dentro de los 30 días con la prenda sin uso. Consultanos por WhatsApp."
   ),
 
   // --- Página LA MARCA ---
@@ -265,6 +294,7 @@ export const demoReels: Reel[] = [
 ];
 
 export const demoMainMenu: MenuItem[] = [
+  { id: "m-inicio", label: "Inicio", link_type: "url", link_ref: "/", image_url: null, column_group: null, children: [] },
   {
     id: "m-coll",
     label: "Colección",
@@ -289,9 +319,9 @@ export const demoMainMenu: MenuItem[] = [
       { id: "mc14", label: "Jean Relaxed Índigo", link_type: "product", link_ref: "jean-relaxed", image_url: "/demo/lifestyle.jpg", column_group: "Destacado", children: [] },
     ],
   },
-  { id: "m-jeans", label: "Jeans", link_type: "category", link_ref: "jeans", image_url: null, column_group: null, children: [] },
-  { id: "m-marca", label: "La Marca", link_type: "page", link_ref: "la-marca", image_url: null, column_group: null, children: [] },
-  { id: "m-made", label: "Hecho en Argentina", link_type: "page", link_ref: "hecho-en-argentina", image_url: null, column_group: null, children: [] },
+  { id: "m-nosotros", label: "Nosotros", link_type: "page", link_ref: "la-marca", image_url: null, column_group: null, children: [] },
+  { id: "m-guia", label: "Guía de talles", link_type: "url", link_ref: "/productos", image_url: null, column_group: null, children: [] },
+  { id: "m-contacto", label: "Contacto", link_type: "url", link_ref: "https://wa.me/5491100000000", image_url: null, column_group: null, children: [] },
 ];
 
 /** Resuelve el href de un ítem de menú según su tipo. */

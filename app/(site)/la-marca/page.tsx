@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { getContent } from "@/lib/data";
+import SolButton from "@/components/site/SolButton";
 
 export const metadata: Metadata = {
   title: "La Marca",
@@ -29,7 +30,7 @@ export default async function LaMarcaPage() {
             {intro.map((p, i) => <p className="pdp-desc" key={i} style={{ marginBottom: 16 }}>{p}</p>)}
           </div>
           <div className="philo-media">
-            <div className="badge-sol"><span className="sol" /></div>
+            <div className="badge-sol"><SolButton size={38} /></div>
             {im("lamarca.hero.image") && <img className="main" src={im("lamarca.hero.image")} alt="MAZOVER" />}
           </div>
         </div>
@@ -57,7 +58,7 @@ export default async function LaMarcaPage() {
 
       <section className="frases">
         <div className="wrap">
-          <div className="line"><span className="sol" /><h3>{t("lamarca.quote")}</h3><span className="sol" /></div>
+          <div className="line"><SolButton size={20} /><h3>{t("lamarca.quote")}</h3><SolButton size={20} /></div>
         </div>
       </section>
     </>

@@ -22,10 +22,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // Sincroniza el carrito con localStorage al montar (patrón legítimo de store externo).
+    let loaded: CartItem[] = [];
     try {
       const raw = localStorage.getItem(KEY);
-      if (raw) setItems(JSON.parse(raw));
+      if (raw) loaded = JSON.parse(raw);
     } catch {}
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setItems(loaded);
     setReady(true);
   }, []);
 
