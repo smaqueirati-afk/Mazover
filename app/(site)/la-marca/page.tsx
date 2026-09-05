@@ -16,26 +16,24 @@ export default async function LaMarcaPage() {
 
   return (
     <>
-      <section className="page-head">
-        <div className="wrap">
-          <span className="eyebrow">{t("lamarca.hero.eyebrow")}</span>
+      {/* HERO con foto */}
+      <section className="page-hero">
+        {im("lamarca.hero.image") && <img src={im("lamarca.hero.image")} alt="MAZOVER" />}
+        <div className="wrap inner">
+          <span className="eyebrow"><SolButton size={16} />{t("lamarca.hero.eyebrow")}</span>
           <h1>{t("lamarca.hero.title")}</h1>
         </div>
       </section>
 
+      {/* INTRO */}
       <section className="section">
-        <div className="wrap philo-grid">
-          <div>
-            <div className="kicker"><span className="rule" /><span className="eyebrow">Nuestra historia</span></div>
-            {intro.map((p, i) => <p className="pdp-desc" key={i} style={{ marginBottom: 16 }}>{p}</p>)}
-          </div>
-          <div className="philo-media">
-            <div className="badge-sol"><SolButton size={38} /></div>
-            {im("lamarca.hero.image") && <img className="main" src={im("lamarca.hero.image")} alt="MAZOVER" />}
-          </div>
+        <div className="wrap page-intro">
+          <div className="kicker"><span className="rule" /><span className="eyebrow">Nuestra historia</span></div>
+          {intro.map((p, i) => <p key={i} style={{ marginBottom: 16 }}>{p}</p>)}
         </div>
       </section>
 
+      {/* SECCIÓN 1 — imagen izquierda */}
       <section className="section coll">
         <div className="wrap philo-grid">
           {im("lamarca.s1.image") && <img src={im("lamarca.s1.image")} alt={t("lamarca.s1.title")} style={{ width: "100%", aspectRatio: "4/5", objectFit: "cover" }} />}
@@ -46,6 +44,7 @@ export default async function LaMarcaPage() {
         </div>
       </section>
 
+      {/* SECCIÓN 2 — imagen derecha */}
       <section className="section">
         <div className="wrap philo-grid">
           <div>
@@ -56,6 +55,7 @@ export default async function LaMarcaPage() {
         </div>
       </section>
 
+      {/* FRASE */}
       <section className="frases">
         <div className="wrap">
           <div className="line"><SolButton size={20} /><h3>{t("lamarca.quote")}</h3><SolButton size={20} /></div>

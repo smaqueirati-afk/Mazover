@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/admin/categorias", label: "Categorías" },
   { href: "/admin/colores", label: "Colores" },
   { href: "/admin/talles", label: "Talles" },
+  { href: "/admin/guia-de-talles", label: "Guía de talles" },
   { href: "/admin/menu", label: "Menú" },
   { href: "/admin/reels", label: "Reels" },
   { href: "/admin/contenido", label: "Contenido" },

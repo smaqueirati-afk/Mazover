@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getContent } from "@/lib/data";
+import SolButton from "@/components/site/SolButton";
 
 export const metadata: Metadata = {
   title: "Hecho en Argentina",
@@ -21,17 +22,19 @@ export default async function HechoPage() {
 
   return (
     <>
-      <section className="band" style={{ height: "clamp(360px,52vw,600px)" }}>
+      {/* HERO con foto */}
+      <section className="page-hero">
         {im("hecho.hero.image") && <img src={im("hecho.hero.image")} alt="Hecho en Argentina" />}
-        <div className="band-cap" style={{ maxWidth: "40ch" }}>
-          <span className="eyebrow">{t("hecho.hero.eyebrow")}</span>
-          <h3 style={{ fontSize: "clamp(30px,4.4vw,60px)" }}>{t("hecho.hero.title")}</h3>
+        <div className="wrap inner">
+          <span className="eyebrow"><SolButton size={16} />{t("hecho.hero.eyebrow")}</span>
+          <h1>{t("hecho.hero.title")}</h1>
         </div>
       </section>
 
+      {/* INTRO */}
       <section className="section">
-        <div className="wrap" style={{ maxWidth: 820 }}>
-          <p style={{ fontFamily: "var(--oswald)", textTransform: "uppercase", fontSize: "clamp(22px,3vw,34px)", lineHeight: 1.2, color: "var(--azul-profundo)" }}>
+        <div className="wrap page-intro">
+          <p style={{ fontFamily: "var(--oswald)", textTransform: "uppercase", fontSize: "clamp(22px,3vw,34px)", lineHeight: 1.2, color: "var(--tinta)", fontWeight: 600 }}>
             {t("hecho.intro")}
           </p>
         </div>
@@ -64,9 +67,9 @@ export default async function HechoPage() {
       ))}
 
       <section className="foot-cta">
-        <div className="wrap">
-          <span className="eyebrow">Orgullo que se viste</span>
-          <h2>Un jean para años, no para una temporada.</h2>
+        <div className="wrap" style={{ textAlign: "center" }}>
+          <span className="eyebrow" style={{ display: "block", marginBottom: 16 }}>Orgullo que se viste</span>
+          <h2 style={{ margin: "0 auto 26px" }}>Un jean para años, no para una temporada.</h2>
           <Link className="btn btn-primary" href="/productos">Ver la colección</Link>
         </div>
       </section>

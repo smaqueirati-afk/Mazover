@@ -46,3 +46,6 @@ export async function saveReel(input: { id?: string; instagram_url: string; post
 export async function saveMenuItem(input: { id?: string; menu_id: string; parent_id: string | null; label: string; link_type: string; link_ref: string | null; column_group: string | null; position: number; is_active: boolean }) {
   return upsert("menu_items", input);
 }
+export async function saveSizeGuide(input: { id?: string; name: string; category_id: string | null; columns: string[]; rows: string[][]; is_active: boolean }) {
+  return upsert("size_guides", input);
+}

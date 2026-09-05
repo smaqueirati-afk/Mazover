@@ -216,21 +216,24 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   }
 }
 
-export async function getSizeGuide(): Promise<SizeGuide> {
+export async function getSizeGuide(categoryId?: string | null): Promise<SizeGuide> {
   if (!isSupabaseConfigured()) return defaultSizeGuide;
   try {
     const supabase = await createClient();
     const { data } = await supabase
       .from("size_guides")
-      .select("name, columns, rows")
-      .eq("is_active", true)
-      .limit(1)
-      .single();
-    if (!data) return defaultSizeGuide;
+      .select("name, category_id, columns, rows")
+      .eq("is_active", true);
+    const rows = (data as Row[]) ?? [];
+    if (rows.length === 0) return defaultSizeGuide;
+    const match =
+      (categoryId && rows.find((r) => r.category_id === categoryId)) ||
+      rows.find((r) => !r.category_id) ||
+      rows[0];
     return {
-      name: data.name as string,
-      columns: (data.columns as string[]) ?? defaultSizeGuide.columns,
-      rows: (data.rows as string[][]) ?? [],
+      name: match.name as string,
+      columns: (match.columns as string[]) ?? defaultSizeGuide.columns,
+      rows: (match.rows as string[][]) ?? [],
     };
   } catch {
     return defaultSizeGuide;

@@ -32,14 +32,14 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [product, settings, sizeGuide, all, content] = await Promise.all([
+  const [product, settings, all, content] = await Promise.all([
     getProductBySlug(slug),
     getSettings(),
-    getSizeGuide(),
     getAllProducts(),
     getContent(),
   ]);
   if (!product) notFound();
+  const sizeGuide = await getSizeGuide(product.category?.id ?? null);
   const shipTitle = content["product.ship.title"]?.value ?? "Envíos y cambios";
   const shipBody = content["product.ship.body"]?.value ?? "Coordinamos envíos a todo el país. Cambios dentro de los 30 días con la prenda sin uso. Consultanos por WhatsApp.";
 
