@@ -33,6 +33,25 @@ const SECTION_LABELS: Record<string, string> = {
   general: "General",
 };
 
+// Tamaño recomendado por imagen, según cómo se usa en el sitio.
+const SIZE_HINTS: Record<string, string> = {
+  "home.hero.image": "Vertical · ~1600×2000 px (4:5) — figura de cuerpo entero, buena luz",
+  "home.philo.image": "Vertical · 1200×1500 px (4:5) — textura/detalle de denim",
+  "home.philo.detail": "Cuadrada · 800×800 px (1:1) — detalle (botón, etiqueta)",
+  "home.band.image": "Apaisada · 1920×900 px (panorámica) — detalle de confección",
+  "home.made.image_a": "Apaisada · 1600×1000 px (16:10) — taller",
+  "home.made.image_b1": "Apaisada · 1200×675 px (16:9)",
+  "home.made.image_b2": "Apaisada · 1200×675 px (16:9)",
+  "lamarca.hero.image": "Vertical · 1200×1500 px (4:5)",
+  "lamarca.s1.image": "Vertical · 1200×1500 px (4:5)",
+  "lamarca.s2.image": "Vertical · 1200×1500 px (4:5)",
+  "hecho.hero.image": "Apaisada · 1920×1000 px — foto de fondo del encabezado",
+  "hecho.b1.image": "Apaisada · 1200×900 px (4:3)",
+  "hecho.b2.image": "Apaisada · 1200×900 px (4:3)",
+  "hecho.b3.image": "Apaisada · 1200×900 px (4:3)",
+};
+const DEFAULT_HINT = "Mín. 1200 px de ancho · JPG o WEBP livianas";
+
 export default function ContentForm({ blocks }: { blocks: Block[] }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(updateContent, null);
   const [imgs, setImgs] = useState<Record<string, string>>(() =>
@@ -86,6 +105,7 @@ export default function ContentForm({ blocks }: { blocks: Block[] }) {
             <div className="adm-field" key={b.key}>
               <label>{b.label ?? b.key}</label>
               {b.type === "image" ? (
+                <>
                 <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
                   <div style={{ width: 64, height: 64, borderRadius: 6, background: "#eee", overflow: "hidden", flex: "none" }}>
                     {imgs[b.key] && <img src={imgs[b.key]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
@@ -104,6 +124,8 @@ export default function ContentForm({ blocks }: { blocks: Block[] }) {
                       onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadImg(b.key, f); e.target.value = ""; }} />
                   </label>
                 </div>
+                <div style={{ fontSize: 12, color: "var(--gris)", marginTop: 6 }}>📐 Tamaño recomendado: {SIZE_HINTS[b.key] ?? DEFAULT_HINT}</div>
+                </>
               ) : (b.type === "richtext" || (b.value?.length ?? 0) > 70) ? (
                 <textarea name={b.key} className="adm-textarea" defaultValue={b.value ?? ""} />
               ) : (
