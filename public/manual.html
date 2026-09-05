@@ -94,9 +94,10 @@ tr:last-child td{border-bottom:0}
     <a href="#config">9. Configuración</a>
     <a href="#consultas">10. Consultas</a>
     <a href="#cliente">11. Cómo compra el cliente</a>
-    <a href="#recetas">12. Tareas frecuentes</a>
-    <a href="#problemas">13. Problemas comunes</a>
-    <a href="#accesos">14. Accesos y datos</a>
+    <a href="#novedades">12. Novedades de la tienda</a>
+    <a href="#recetas">13. Tareas frecuentes</a>
+    <a href="#problemas">14. Problemas comunes</a>
+    <a href="#accesos">15. Accesos y datos</a>
   </nav>
 
   <main>
@@ -178,6 +179,7 @@ tr:last-child td{border-bottom:0}
         <li>Repetí para cada color: al cambiar de color en la ficha, cambia toda la galería.</li>
       </ol>
       <div class="tip"><b>Fotos recomendadas</b>Verticales (proporción 4:5), buena luz, fondo prolijo. Mínimo ~1200 px de ancho. La primera de cada color debe ser la mejor (es la portada).</div>
+      <div class="note"><b>Efecto reverso (foto 2)</b>En el catálogo, al pasar el mouse (o mantener el dedo) sobre una prenda, la card muestra la <strong>segunda foto</strong> del color principal. Por eso conviene que la <strong>foto 01 sea el frente</strong> y la <strong>foto 02 la espalda</strong>. Si un color tiene una sola foto, simplemente no hace el efecto.</div>
     </section>
 
     <section id="taxonomias">
@@ -251,7 +253,12 @@ tr:last-child td{border-bottom:0}
 
     <section id="consultas">
       <h2><span class="n">10</span> Consultas</h2>
-      <p>Registro de los pedidos/consultas. Vas a ver fecha, cliente, ítems, total estimado y estado. Te sirve para hacer seguimiento de lo que te llega por WhatsApp.</p>
+      <p>Registro de los pedidos y avisos recibidos. Vas a ver <strong>fecha</strong>, <strong>tipo</strong>, <strong>cliente</strong>, <strong>contacto</strong>, <strong>ítems</strong> y <strong>estado</strong>.</p>
+      <ul>
+        <li><strong>Tipo “Pedido”</strong> — consultas de compra por WhatsApp.</li>
+        <li><strong>Tipo “Reposición”</strong> — cuando alguien deja su contacto en un talle/color agotado con “Avisame cuando vuelva” (ver sección 12). Ahí ves a <strong>quién avisar</strong> y <strong>qué reponer</strong>.</li>
+      </ul>
+      <div class="note"><b>Suscriptores</b>Los emails del newsletter NO aparecen acá: tienen su propia sección <strong>Suscriptores</strong> en el menú (con exportación a CSV). Ver sección 12.</div>
     </section>
 
     <section id="cliente">
@@ -265,8 +272,32 @@ tr:last-child td{border-bottom:0}
       </ol>
     </section>
 
+    <section id="novedades">
+      <h2><span class="n">12</span> Novedades de la tienda</h2>
+      <p class="lead">Funciones que se sumaron para mejorar la experiencia del cliente y darte más herramientas de venta. Todo funciona solo; acá te contamos qué hace cada una.</p>
+
+      <h3>❤️ Favoritos (corazón)</h3>
+      <p>Cada prenda tiene un <strong>corazón</strong>. El cliente lo toca para guardarla y la encuentra después en la página <strong>Favoritos</strong> (ícono de corazón arriba, con contador). Se guarda <strong>en su dispositivo</strong> (no necesita cuenta ni deja datos). En compu aparece al pasar el mouse por la card; en celular está siempre visible.</p>
+
+      <h3>🔄 Reverso al pasar el mouse</h3>
+      <p>En el catálogo, al pasar el mouse o mantener el dedo sobre una prenda, se muestra la <strong>segunda foto</strong> del color (el “otro lado”). Cargá la foto 01 de frente y la 02 de espalda para que quede perfecto (ver sección 4).</p>
+
+      <h3>🔔 Avisame cuando vuelva</h3>
+      <p>Cuando un <strong>talle o color está agotado</strong>, el cliente puede tocar <strong>“Avisame cuando vuelva”</strong>, dejar su nombre y WhatsApp/email, y queda registrado en <strong>Consultas → tipo “Reposición”</strong>. Así recuperás ventas: sabés exactamente qué reponer y a quién avisar.</p>
+
+      <h3>💬 Foto del producto en el WhatsApp</h3>
+      <p>El mensaje de compra ahora incluye el <strong>link de la ficha</strong>. WhatsApp arma solo una tarjeta con la <strong>foto de portada</strong> de la prenda. (WhatsApp no permite adjuntar la imagen por link; el preview es la forma correcta y ya funciona sola, siempre que el producto tenga foto de portada.)</p>
+
+      <h3>🎠 Carrusel de productos</h3>
+      <p>En la home y en la ficha (“También te puede gustar”) los productos se muestran en un <strong>carrusel</strong> con flechas y deslizamiento. Los textos del carrusel de la home (“Explorá / Toda la colección”) se editan en <strong>Contenido</strong>.</p>
+
+      <h3>✉️ Newsletter y Suscriptores</h3>
+      <p>Hay un formulario de <strong>suscripción</strong> en la home (banda con foto) y en el pie. Los emails se guardan y los ves en <strong>Menú → Suscriptores</strong>, con <strong>Exportar CSV</strong> para usarlos en tu herramienta de mailing. Los textos y la foto de la banda se editan en <strong>Contenido</strong>.</p>
+      <div class="warn"><b>Paso único para activar el newsletter</b>El newsletter usa una tabla nueva en la base. Una sola vez: entrá a <strong>Supabase → SQL Editor → New query</strong>, pegá el contenido del archivo <code>supabase/newsletter.sql</code> (está en el código, en GitHub) y tocá <strong>Run</strong>. Es seguro correrlo. Hasta hacer esto, las suscripciones no se guardan.</div>
+    </section>
+
     <section id="recetas">
-      <h2><span class="n">12</span> Tareas frecuentes (recetas rápidas)</h2>
+      <h2><span class="n">13</span> Tareas frecuentes (recetas rápidas)</h2>
       <div class="card">
         <h3 style="margin-top:0">Agregar un producto nuevo</h3>
         Productos → + Nuevo producto → Info + Guardar → Colores → Stock → Imágenes. Marcá <strong>Activo</strong> (y <strong>Destacado</strong> si querés que salga en la home).
@@ -296,13 +327,21 @@ tr:last-child td{border-bottom:0}
         Menú → <strong>Guía de talles</strong> → elegí la guía (o + Nueva guía y asignale la categoría) → editá celdas / + Fila / + Columna → <strong>Guardar guía</strong>.
       </div>
       <div class="card">
+        <h3 style="margin-top:0">Ver quién pidió reposición</h3>
+        Menú → <strong>Consultas</strong> → filtrá visualmente por tipo <strong>“Reposición”</strong>. Ahí está el contacto y la prenda (producto · color · talle) que esperan.
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Exportar los suscriptores del newsletter</h3>
+        Menú → <strong>Suscriptores</strong> → <strong>Exportar CSV</strong>. Abrís el archivo en Excel o lo importás a tu herramienta de mailing.
+      </div>
+      <div class="card">
         <h3 style="margin-top:0">Agregar otro administrador</h3>
         En Supabase → Authentication → Add user (con “Auto Confirm”) → después, en SQL Editor: <code>update public.profiles set is_admin = true where email = 'EL-EMAIL';</code>
       </div>
     </section>
 
     <section id="problemas">
-      <h2><span class="n">13</span> Problemas comunes</h2>
+      <h2><span class="n">14</span> Problemas comunes</h2>
       <table>
         <tr><th>Síntoma</th><th>Solución</th></tr>
         <tr><td>“Invalid login credentials” al entrar</td><td>El usuario/contraseña no coinciden. En Supabase → Authentication, recreá el usuario con <strong>Auto Confirm User</strong> tildado y una contraseña conocida.</td></tr>
@@ -310,11 +349,12 @@ tr:last-child td{border-bottom:0}
         <tr><td>“Sin permisos” después de entrar</td><td>Falta marcar tu usuario como admin: <code>update public.profiles set is_admin = true where email = 'TU-EMAIL';</code></td></tr>
         <tr><td>Una foto no sube</td><td>Que sea imagen (jpg/png/webp) y no muy pesada. Revisá tu conexión y reintentá.</td></tr>
         <tr><td>Cambié algo y no se ve</td><td>Refrescá la página del sitio. Si editaste contenido, asegurate de haber tocado “Guardar”.</td></tr>
+        <tr><td>Las suscripciones al newsletter no se guardan</td><td>Falta el paso único: correr <code>supabase/newsletter.sql</code> en Supabase → SQL Editor (ver sección 12).</td></tr>
       </table>
     </section>
 
     <section id="accesos">
-      <h2><span class="n">14</span> Accesos y datos técnicos</h2>
+      <h2><span class="n">15</span> Accesos y datos técnicos</h2>
       <table>
         <tr><th>Qué</th><th>Dónde</th></tr>
         <tr><td>Sitio público</td><td><code>https://mazover.vercel.app</code></td></tr>
