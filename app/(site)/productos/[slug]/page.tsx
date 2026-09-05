@@ -68,7 +68,7 @@ export default async function ProductPage({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <nav className="wrap" style={{ paddingTop: 108, fontFamily: "var(--oswald)", fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--gris)" }} aria-label="Breadcrumb">
+      <nav className="wrap" style={{ paddingTop: "clamp(16px,3vw,28px)", fontFamily: "var(--oswald)", fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--gris)" }} aria-label="Breadcrumb">
         <Link href="/">Inicio</Link> / <Link href="/productos">Colección</Link> / <span style={{ color: "var(--azul-profundo)" }}>{product.name}</span>
       </nav>
       <ProductView product={product} settings={settings} sizeGuide={sizeGuide} shipTitle={shipTitle} shipBody={shipBody} />
