@@ -487,6 +487,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rojo); outline-
 .prod:hover { transform: translateY(-7px); }
 .prod:hover .prod-media { box-shadow: 0 22px 44px -16px rgba(11,18,32,.32); }
 .prod:hover .prod-media img { transform: scale(1.06); }
+
+/* Hover-swap: mostrar el reverso al pasar/tocar la prenda */
+.prod-media .pm-back { opacity: 0; transition: opacity .55s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+.prod-media .pm-front { transition: opacity .55s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+.prod.has-back:hover .pm-back,
+.prod.has-back:active .pm-back { opacity: 1; }
+.prod.has-back:hover .pm-front,
+.prod.has-back:active .pm-front { opacity: 0; }
 .prod:active { transform: translateY(-3px) scale(.994); }
 .prod:active .prod-media { box-shadow: 0 12px 26px -14px rgba(11,18,32,.3); }
 .prod .prod-name { transition: color .25s ease; }

@@ -10,8 +10,10 @@ function isSoldOut(p: Product) {
 
 export default function ProductCard({ p, symbol }: { p: Product; symbol: string }) {
   const soldOut = isSoldOut(p);
+  // Reverso: 2ª foto del color principal, para el efecto hover-swap.
+  const back = p.colors[0]?.images.find((i) => i.url !== p.cover_url)?.url ?? null;
   return (
-    <article className="prod" style={{ position: "relative" }}>
+    <article className={`prod ${back ? "has-back" : ""}`} style={{ position: "relative" }}>
       <FavButton slug={p.slug} />
       <Link href={`/productos/${p.slug}`} className="prod-media" style={{ aspectRatio: "4 / 5" }}>
         {soldOut ? (
@@ -22,7 +24,10 @@ export default function ProductCard({ p, symbol }: { p: Product; symbol: string 
           <span className="badge">Best seller</span>
         ) : null}
         {p.cover_url && (
-          <Image src={p.cover_url} alt={p.name} fill sizes="(max-width:880px) 50vw, 33vw" style={{ objectFit: "cover" }} />
+          <Image className="pm-front" src={p.cover_url} alt={p.name} fill sizes="(max-width:880px) 50vw, 33vw" style={{ objectFit: "cover" }} />
+        )}
+        {back && (
+          <Image className="pm-back" src={back} alt={`${p.name} — vista alternativa`} fill sizes="(max-width:880px) 50vw, 33vw" style={{ objectFit: "cover" }} />
         )}
       </Link>
       <div className="prod-info">
