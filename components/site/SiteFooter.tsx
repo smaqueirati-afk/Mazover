@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Settings, ContentMap } from "@/lib/types";
+import NewsletterForm from "./NewsletterForm";
 
 export default function SiteFooter({
   settings,
@@ -9,6 +10,7 @@ export default function SiteFooter({
   content: ContentMap;
 }) {
   const about = content["footer.about"]?.value ?? "";
+  const nlTitle = content["footer.newsletter.title"]?.value ?? "Suscribite al newsletter";
   const year = new Date().getFullYear();
   return (
     <footer className="site-footer">
@@ -44,6 +46,10 @@ export default function SiteFooter({
               <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer">Instagram</a>
             )}
             {settings.email && <a href={`mailto:${settings.email}`}>{settings.email}</a>}
+          </div>
+          <div className="foot-col foot-nl">
+            <h4>{nlTitle}</h4>
+            <NewsletterForm source="footer" variant="footer" />
           </div>
         </div>
         <div className="foot-bottom">

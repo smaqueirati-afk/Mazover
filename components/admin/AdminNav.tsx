@@ -17,6 +17,7 @@ const LINKS = [
   { href: "/admin/reels", label: "Reels" },
   { href: "/admin/contenido", label: "Contenido" },
   { href: "/admin/consultas", label: "Consultas" },
+  { href: "/admin/suscriptores", label: "Suscriptores" },
   { href: "/admin/configuracion", label: "Configuración" },
 ];
 

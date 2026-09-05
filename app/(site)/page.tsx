@@ -5,6 +5,7 @@ import { getContent, getSettings, getFeaturedProducts, getReels } from "@/lib/da
 import { formatPrice } from "@/lib/utils";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import SolButton from "@/components/site/SolButton";
+import NewsletterForm from "@/components/site/NewsletterForm";
 import type { Product } from "@/lib/types";
 
 const Arrow = () => (
@@ -247,6 +248,24 @@ export default async function HomePage() {
           <div className="line"><h3>{t("home.frases.2")}</h3></div>
           <div className="hr" />
           <div className="line"><SolButton size={20} /><h3>{t("home.frases.3")}</h3><SolButton size={20} /></div>
+        </div>
+      </section>
+
+      {/* NEWSLETTER */}
+      <section className="newsletter">
+        {im("home.newsletter.image") && (
+          <Image src={im("home.newsletter.image")} alt="" fill sizes="100vw" style={{ objectFit: "cover", objectPosition: "center 30%" }} />
+        )}
+        <div className="wrap newsletter-inner">
+          <span className="eyebrow">{t("home.newsletter.eyebrow")}</span>
+          <h2>{t("home.newsletter.title")}</h2>
+          {t("home.newsletter.subtitle") && <p>{t("home.newsletter.subtitle")}</p>}
+          <NewsletterForm
+            placeholder={t("home.newsletter.placeholder") || "Ingresá tu email"}
+            button={t("home.newsletter.button") || "Suscribirse"}
+            source="newsletter"
+            variant="band"
+          />
         </div>
       </section>
 

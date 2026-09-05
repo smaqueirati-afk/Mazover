@@ -112,6 +112,13 @@ export const defaultContent: ContentMap = {
   "home.cta.button": c("Ver la colección"),
   "home.cta.whatsapp": c("Comprar por WhatsApp"),
   "home.cta.hours": c("Respondemos de 9 a 19 h · Lun a sáb"),
+  "home.newsletter.eyebrow": c("Newsletter"),
+  "home.newsletter.title": c("Suscribite y recibí las últimas novedades y ofertas exclusivas."),
+  "home.newsletter.subtitle": c("Sumate a la comunidad MAZOVER. Nada de spam: sólo lanzamientos, ediciones limitadas y beneficios."),
+  "home.newsletter.placeholder": c("Ingresá tu email"),
+  "home.newsletter.button": c("Suscribirse"),
+  "home.newsletter.image": c(null, "/demo/lifestyle.jpg"),
+  "footer.newsletter.title": c("Suscribite al newsletter"),
   "footer.about": c(
     "Denim diseñado y fabricado en Argentina. Calidad que se siente, orgullo que se viste."
   ),
