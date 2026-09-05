@@ -1,8 +1,18 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import type { Settings } from "@/lib/types";
 
 export default function WhatsappFab({ settings }: { settings: Settings }) {
+  const pathname = usePathname();
   const phone = (settings.whatsapp_number ?? "").replace(/\D/g, "");
   if (!phone) return null;
+
+  // En la ficha de producto ya existe el botón "Comprar por WhatsApp":
+  // ocultamos el FAB flotante para que no tape el botón "Guardar" ni la acción principal.
+  const isProductDetail = /^\/productos\/[^/]+/.test(pathname);
+  if (isProductDetail) return null;
+
   const href = `https://wa.me/${phone}?text=${encodeURIComponent(
     settings.whatsapp_message ?? "Hola, quiero consultar por los jeans."
   )}`;
