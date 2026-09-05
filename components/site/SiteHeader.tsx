@@ -24,7 +24,7 @@ function Logo({ brand, tagline }: { brand: string; tagline: string }) {
 function IconSearch() { return (<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>); }
 function IconUser() { return (<svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0" /><circle cx="12" cy="7" r="4" /></svg>); }
 function IconBag() { return (<svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>); }
-function IconHeart() { return (<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C.7 9 1.6 5.7 4.6 4.8c2-.6 3.9.3 4.9 1.9 1-1.6 2.9-2.5 4.9-1.9 3 .9 3.9 4.2 2.6 7C19.5 16.4 12 21 12 21z" /></svg>); }
+function IconHeart() { return (<svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" /></svg>); }
 function IconMenu() { return (<svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" /></svg>); }
 function IconClose() { return (<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>); }
 

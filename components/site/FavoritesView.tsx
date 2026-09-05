@@ -26,7 +26,7 @@ export default function FavoritesView({
     return (
       <div className="wrap fav-empty">
         <svg viewBox="0 0 24 24" aria-hidden="true" className="fav-empty-icon">
-          <path d="M12 21s-7.5-4.6-10-9.2C.7 9 1.6 5.7 4.6 4.8c2-.6 3.9.3 4.9 1.9 1-1.6 2.9-2.5 4.9-1.9 3 .9 3.9 4.2 2.6 7C19.5 16.4 12 21 12 21z" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinejoin="round" />
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         <h2>Todavía no guardaste nada</h2>
         <p>Tocá el corazón en las prendas que te gusten y las vas a encontrar acá, en este dispositivo.</p>
