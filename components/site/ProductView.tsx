@@ -53,9 +53,10 @@ export default function ProductView({
         settings,
         product.name,
         color?.name ?? "",
-        selectedVariant?.size_label ?? "(a confirmar)"
+        selectedVariant?.size_label ?? "(a confirmar)",
+        product.slug
       ),
-    [settings, product.name, color?.name, selectedVariant?.size_label]
+    [settings, product.name, color?.name, selectedVariant?.size_label, product.slug]
   );
 
   const handleAdd = () => {
