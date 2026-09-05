@@ -21,6 +21,7 @@ export type Settings = {
   seo_og_image: string | null;
   currency: string;
   currency_symbol: string;
+  palette: string;
 };
 
 export type ContentMap = Record<string, { value: string | null; image_url: string | null }>;

@@ -32,6 +32,7 @@ export const defaultSettings: Settings = {
   seo_og_image: "/demo/hero.jpg",
   currency: "ARS",
   currency_symbol: "$",
+  palette: "heritage",
 };
 
 const c = (value: string | null, image_url: string | null = null) => ({ value, image_url });

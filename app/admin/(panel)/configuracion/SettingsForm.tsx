@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { updateSettings, type ActionState } from "./actions";
 import type { Settings } from "@/lib/types";
+import { PALETTES } from "@/lib/palettes";
 
 function Field({ name, label, def, type = "text", full }: { name: string; label: string; def: string; type?: string; full?: boolean }) {
   return (
@@ -12,15 +13,6 @@ function Field({ name, label, def, type = "text", full }: { name: string; label:
     </div>
   );
 }
-
-const COLORS: { name: keyof Settings; label: string }[] = [
-  { name: "color_ink", label: "Azul profundo (base)" },
-  { name: "color_blue", label: "Azul" },
-  { name: "color_celeste", label: "Celeste" },
-  { name: "color_surface", label: "Fondo (hueso)" },
-  { name: "color_sand", label: "Arena" },
-  { name: "color_red", label: "Rojo (logo/acento)" },
-];
 
 export default function SettingsForm({ settings }: { settings: Settings }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(updateSettings, null);
@@ -51,22 +43,32 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
       </div>
 
       <div className="adm-card" style={{ marginBottom: 20 }}>
-        <h3 style={{ fontFamily: "var(--oswald)", textTransform: "uppercase", marginBottom: 16 }}>Paleta</h3>
-        <div className="adm-row2">
-          {COLORS.map((c) => (
-            <div className="adm-field" key={c.name}>
-              <label htmlFor={c.name}>{c.label}</label>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <input type="color" defaultValue={String(settings[c.name] ?? "#000000")} onChange={(e) => {
-                  const t = document.getElementById(`${c.name}_txt`) as HTMLInputElement | null;
-                  if (t) t.value = e.target.value;
-                }} style={{ width: 44, height: 40, border: "1px solid rgba(13,19,38,.2)", borderRadius: 4, background: "#fff" }} />
-                <input id={`${c.name}_txt`} name={c.name} className="adm-input" defaultValue={String(settings[c.name] ?? "")} />
-              </div>
-            </div>
-          ))}
+        <h3 style={{ fontFamily: "var(--oswald)", textTransform: "uppercase", marginBottom: 6 }}>Paleta de colores</h3>
+        <p style={{ fontSize: 13, color: "var(--gris)", marginBottom: 16 }}>Elegí una combinación. Se aplica a todo el sitio al guardar.</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 12 }}>
+          {PALETTES.map((p) => {
+            const t = p.tokens;
+            const active = (settings.palette || "heritage") === p.key;
+            return (
+              <label key={p.key} style={{ display: "block", cursor: "pointer", border: `2px solid ${active ? "var(--azul-profundo)" : "rgba(13,19,38,.15)"}`, borderRadius: 10, overflow: "hidden", background: "#fff" }}>
+                <input type="radio" name="palette" value={p.key} defaultChecked={active} style={{ position: "absolute", opacity: 0, pointerEvents: "none" }} />
+                <div style={{ display: "flex", height: 46 }}>
+                  <span style={{ flex: 2, background: t.noche }} />
+                  <span style={{ flex: 1, background: t.papel }} />
+                  <span style={{ flex: 1, background: t.azul }} />
+                  <span style={{ flex: 1, background: t.rojo }} />
+                  <span style={{ flex: 1, background: t.arena }} />
+                </div>
+                <div style={{ padding: "10px 12px" }}>
+                  <div style={{ fontFamily: "var(--oswald)", textTransform: "uppercase", fontSize: 13, letterSpacing: ".04em", color: "var(--azul-profundo)" }}>
+                    {p.name}{active ? " ✓" : ""}
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--gris)", marginTop: 3, lineHeight: 1.4 }}>{p.desc}</div>
+                </div>
+              </label>
+            );
+          })}
         </div>
-        <p style={{ fontSize: 12, color: "var(--gris)", marginTop: 6 }}>Los colores se aplican en todo el sitio al guardar.</p>
       </div>
 
       <div className="adm-card" style={{ marginBottom: 20 }}>

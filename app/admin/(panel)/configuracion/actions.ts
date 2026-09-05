@@ -7,7 +7,7 @@ const FIELDS = [
   "brand_name", "brand_tagline", "whatsapp_number", "whatsapp_message",
   "instagram_url", "instagram_handle", "email", "address",
   "color_ink", "color_blue", "color_celeste", "color_surface", "color_sand", "color_red",
-  "seo_title", "seo_description", "currency_symbol", "logo_url",
+  "seo_title", "seo_description", "currency_symbol", "logo_url", "palette",
 ];
 
 export type ActionState = { ok: boolean; msg: string } | null;

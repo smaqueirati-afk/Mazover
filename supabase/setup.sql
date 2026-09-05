@@ -1,7 +1,6 @@
 -- ============================================================================
--- MAZOVER · SETUP COMPLETO (pegar todo en el SQL Editor de Supabase y ejecutar)
--- Generado a partir de schema.sql + policies.sql + storage.sql + seed.sql
--- Idempotente: se puede re-ejecutar sin errores.
+-- MAZOVER · SETUP COMPLETO (idempotente). Pegar todo en Supabase SQL Editor.
+-- schema.sql + policies.sql + storage.sql + seed.sql
 -- ============================================================================
 
 -- >>>>>>>>>> 1) SCHEMA <<<<<<<<<<
@@ -89,6 +88,7 @@ create table if not exists public.settings (
   currency_symbol    text not null default '$',
   updated_at         timestamptz not null default now()
 );
+alter table public.settings add column if not exists palette text not null default 'heritage';
 drop trigger if exists settings_updated on public.settings;
 create trigger settings_updated before update on public.settings
   for each row execute function public.set_updated_at();
@@ -497,7 +497,7 @@ drop policy if exists "storage admin delete" on storage.objects;
 create policy "storage admin delete" on storage.objects
   for delete using (bucket_id in ('products', 'content') and public.is_admin());
 
--- >>>>>>>>>> 4) SEED (datos iniciales) <<<<<<<<<<
+-- >>>>>>>>>> 4) SEED <<<<<<<<<<
 -- ============================================================================
 -- MAZOVER · Datos iniciales (defaults editables desde el panel)
 -- Ejecutar DESPUÉS de schema.sql y policies.sql.

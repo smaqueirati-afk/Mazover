@@ -82,6 +82,7 @@ create table if not exists public.settings (
   currency_symbol    text not null default '$',
   updated_at         timestamptz not null default now()
 );
+alter table public.settings add column if not exists palette text not null default 'heritage';
 drop trigger if exists settings_updated on public.settings;
 create trigger settings_updated before update on public.settings
   for each row execute function public.set_updated_at();

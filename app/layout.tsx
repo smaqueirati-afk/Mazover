@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Oswald, Montserrat } from "next/font/google";
 import "./globals.css";
 import { getSettings } from "@/lib/data";
+import { getPaletteVars } from "@/lib/palettes";
 import SolDefs from "@/components/site/SolDefs";
 
 const oswald = Oswald({
@@ -38,8 +39,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const s = await getSettings();
-  // Colores editables desde el panel → se inyectan como CSS vars.
-  const colorVars = `:root{--azul-profundo:${s.color_ink};--azul:${s.color_blue};--celeste:${s.color_celeste};--blanco:${s.color_surface};--arena:${s.color_sand};--rojo:${s.color_red};}`;
+  // Paleta elegida desde el panel → se inyecta como CSS vars (pinta todo el sitio).
+  const colorVars = getPaletteVars(s.palette);
   return (
     <html lang="es" className={`${oswald.variable} ${montserrat.variable}`}>
       <body>
