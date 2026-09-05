@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useFavorites } from "@/lib/favorites";
 
 function Heart({ filled }: { filled: boolean }) {
@@ -27,17 +28,24 @@ export default function FavButton({
 }) {
   const { has, toggle } = useFavorites();
   const active = has(slug);
+  const [pop, setPop] = useState(false);
   const label = active ? "Quitar de favoritos" : "Guardar en favoritos";
+
+  const handleToggle = () => {
+    // Sólo animamos el "pop" al pasar de apagado a encendido.
+    if (!active) { setPop(true); window.setTimeout(() => setPop(false), 520); }
+    toggle(slug);
+  };
 
   if (variant === "inline") {
     return (
       <button
         type="button"
-        className={`fav-inline ${active ? "on" : ""} ${className}`}
+        className={`fav-inline ${active ? "on" : ""} ${pop ? "pop" : ""} ${className}`}
         aria-pressed={active}
         aria-label={label}
         title={label}
-        onClick={() => toggle(slug)}
+        onClick={handleToggle}
       >
         <Heart filled={active} />
         <span>{active ? "Guardado" : "Guardar"}</span>
@@ -48,11 +56,11 @@ export default function FavButton({
   return (
     <button
       type="button"
-      className={`fav-btn ${active ? "on" : ""} ${className}`}
+      className={`fav-btn ${active ? "on" : ""} ${pop ? "pop" : ""} ${className}`}
       aria-pressed={active}
       aria-label={label}
       title={label}
-      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(slug); }}
+      onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleToggle(); }}
     >
       <Heart filled={active} />
     </button>

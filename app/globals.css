@@ -475,6 +475,33 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rojo); outline-
   .pdp-actions .btn { min-width: 100%; }
 }
 
+/* ---- INTERACCIONES PREMIUM (realce al seleccionar) ---- */
+.prod {
+  transition: transform .45s cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+}
+.prod-media {
+  box-shadow: 0 1px 0 rgba(11,18,32,.04);
+  transition: box-shadow .45s cubic-bezier(.2,.7,.2,1);
+}
+.prod:hover { transform: translateY(-7px); }
+.prod:hover .prod-media { box-shadow: 0 22px 44px -16px rgba(11,18,32,.32); }
+.prod:hover .prod-media img { transform: scale(1.06); }
+.prod:active { transform: translateY(-3px) scale(.994); }
+.prod:active .prod-media { box-shadow: 0 12px 26px -14px rgba(11,18,32,.3); }
+.prod .prod-name { transition: color .25s ease; }
+.prod:hover .prod-name { color: var(--rojo); }
+
+/* Aparición escalonada de la grilla */
+@keyframes prod-reveal { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.grid-products .prod { animation: prod-reveal .5s cubic-bezier(.2,.7,.2,1) both; }
+.grid-products .prod:nth-child(2) { animation-delay: .06s; }
+.grid-products .prod:nth-child(3) { animation-delay: .12s; }
+.grid-products .prod:nth-child(4) { animation-delay: .18s; }
+.grid-products .prod:nth-child(5) { animation-delay: .24s; }
+.grid-products .prod:nth-child(6) { animation-delay: .3s; }
+.grid-products .prod:nth-child(n+7) { animation-delay: .34s; }
+
 /* ---- FAVORITOS (corazón) ---- */
 .fav-btn {
   position: absolute; top: 12px; right: 12px; z-index: 3;
@@ -483,6 +510,17 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rojo); outline-
   background: rgba(255,255,255,.86); backdrop-filter: blur(4px);
   border: 1px solid rgba(11,18,32,.08); color: var(--tinta);
   cursor: pointer; transition: transform .18s ease, background .2s, color .2s, box-shadow .2s;
+}
+.fav-btn:active { transform: scale(.9); }
+
+/* "Pop" + estallido al marcar favorito */
+@keyframes fav-pop { 0% { transform: scale(1); } 30% { transform: scale(1.38); } 55% { transform: scale(.88); } 100% { transform: scale(1); } }
+@keyframes fav-ring { 0% { transform: scale(.75); opacity: .55; } 100% { transform: scale(2); opacity: 0; } }
+.fav-btn.pop svg, .fav-inline.pop svg { animation: fav-pop .5s cubic-bezier(.2,.8,.3,1.5); }
+.fav-btn.pop::after {
+  content: ""; position: absolute; inset: -2px; border-radius: 50%;
+  border: 2px solid var(--rojo); pointer-events: none;
+  animation: fav-ring .5s ease-out forwards;
 }
 .fav-btn:hover { transform: scale(1.08); box-shadow: 0 4px 14px rgba(11,18,32,.16); }
 .fav-btn svg { width: 19px; height: 19px; stroke: currentColor; stroke-width: 1.7; fill: none; }
