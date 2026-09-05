@@ -7,6 +7,7 @@ import { buildWhatsAppLink } from "@/lib/whatsapp";
 import SolButton from "@/components/site/SolButton";
 import NewsletterForm from "@/components/site/NewsletterForm";
 import ProductCarousel from "@/components/site/ProductCarousel";
+import ReelsMarquee from "@/components/site/ReelsMarquee";
 import type { Product } from "@/lib/types";
 
 const Arrow = () => (
@@ -221,24 +222,8 @@ export default async function HomePage() {
               </a>
             )}
           </div>
-          <div className="reels-grid">
-            {reels.map((r) => {
-              const href = r.product_slug ? `/productos/${r.product_slug}` : r.instagram_url;
-              return (
-                <a key={r.id} className="reel" href={href} target={r.product_slug ? undefined : "_blank"} rel="noopener noreferrer">
-                  <span className="ig"><IgIcon s={19} /></span>
-                  <span className="play"><svg viewBox="0 0 24 24" style={{ width: 18, height: 18, fill: "#fff" }}><path d="M8 5v14l11-7z" /></svg></span>
-                  {r.poster_url && <Image src={r.poster_url} alt={r.caption ?? "Reel MAZOVER"} fill sizes="(max-width:880px) 50vw, 25vw" style={{ objectFit: "cover" }} />}
-                  {r.product_slug && <span className="tag">{prodCta}</span>}
-                  <span className="meta">
-                    <span className="handle">{settings.instagram_handle}</span>
-                    {r.caption && <span className="cap">{r.caption}</span>}
-                  </span>
-                </a>
-              );
-            })}
-          </div>
         </div>
+        <ReelsMarquee reels={reels} handle={settings.instagram_handle} ctaLabel={prodCta} />
       </section>
 
       {/* HECHO EN ARGENTINA */}
