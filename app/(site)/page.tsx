@@ -26,6 +26,27 @@ const featIcons = [
   <svg key="3" viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10z" /><circle cx="12" cy="11" r="2.2" /></svg>,
 ];
 
+function HeroFeature({ index, title, body, ariaHidden }: { index: number; title: string; body: string; ariaHidden?: boolean }) {
+  return (
+    <div className="hero-feature" aria-hidden={ariaHidden || undefined}>
+      {featIcons[index]}
+      <div>
+        <div className="t">{title}</div>
+        <div className="b">{body}</div>
+      </div>
+    </div>
+  );
+}
+
+function MqItem({ text, ariaHidden }: { text: string; ariaHidden?: boolean }) {
+  return (
+    <span className="mq-item" aria-hidden={ariaHidden || undefined}>
+      <span className="txt">{text}</span>
+      <SolButton size={13} />
+    </span>
+  );
+}
+
 function ProductEditorial({ p, variant, symbol, ctaLabel, cuotasN }: { p: Product; variant: "a" | "b"; symbol: string; ctaLabel: string; cuotasN: number }) {
   const cuota = Math.round(p.price / cuotasN);
   return (
@@ -73,6 +94,7 @@ export default async function HomePage() {
   const im = (k: string) => content[k]?.image_url ?? "";
   const symbol = settings.currency_symbol;
   const marquee = t("home.marquee.items").split("|").filter(Boolean);
+  const features = [1, 2, 3, 4].map((n, i) => ({ i, title: t(`home.features.${n}.title`), body: t(`home.features.${n}.body`) }));
   const philoParas = t("home.philo.body").split("\n\n");
   const waLink = buildWhatsAppLink(settings, []);
   const cuotasN = parseInt(t("home.product.cuotas"), 10) || 3;
@@ -99,29 +121,20 @@ export default async function HomePage() {
         <div className="hero-media">
           {im("home.hero.image") && <Image src={im("home.hero.image")} alt="Campaña MAZOVER" fill priority sizes="(max-width:880px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition: "center top" }} />}
         </div>
-        <div className="hero-features">
-          {[1, 2, 3, 4].map((n, i) => (
-            <div className="hero-feature" key={n}>
-              {featIcons[i]}
-              <div>
-                <div className="t">{t(`home.features.${n}.title`)}</div>
-                <div className="b">{t(`home.features.${n}.body`)}</div>
-              </div>
-            </div>
-          ))}
+        <div className="hero-features" aria-label="Características">
+          <div className="hf-track">
+            {features.map((f) => <HeroFeature key={`a${f.i}`} index={f.i} title={f.title} body={f.body} />)}
+            {features.map((f) => <HeroFeature key={`b${f.i}`} index={f.i} title={f.title} body={f.body} ariaHidden />)}
+          </div>
         </div>
       </header>
       <div className="hero-bar" />
 
       {/* MARQUEE */}
-      <div className="marquee">
-        <div className="wrap marquee-inner">
-          {marquee.map((item, i) => (
-            <span key={item} style={{ display: "contents" }}>
-              <span className="txt">{item}</span>
-              {i < marquee.length - 1 && <SolButton size={13} />}
-            </span>
-          ))}
+      <div className="marquee" aria-label="Valores de marca">
+        <div className="mq-track">
+          {marquee.map((item, i) => <MqItem key={`a${i}`} text={item} />)}
+          {marquee.map((item, i) => <MqItem key={`b${i}`} text={item} ariaHidden />)}
         </div>
       </div>
 
