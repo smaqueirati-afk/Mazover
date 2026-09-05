@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
+import FavButton from "./FavButton";
 
 function isSoldOut(p: Product) {
   return p.colors.every((c) => c.variants.every((v) => v.stock <= 0));
@@ -10,7 +11,8 @@ function isSoldOut(p: Product) {
 export default function ProductCard({ p, symbol }: { p: Product; symbol: string }) {
   const soldOut = isSoldOut(p);
   return (
-    <article className="prod">
+    <article className="prod" style={{ position: "relative" }}>
+      <FavButton slug={p.slug} />
       <Link href={`/productos/${p.slug}`} className="prod-media" style={{ aspectRatio: "4 / 5" }}>
         {soldOut ? (
           <span className="badge sold">Agotado</span>

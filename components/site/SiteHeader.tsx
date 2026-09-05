@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { MenuItem, Settings } from "@/lib/types";
 import { cn, menuHref } from "@/lib/utils";
 import { useCart } from "@/lib/cart";
+import { useFavorites } from "@/lib/favorites";
 import SolButton from "./SolButton";
 
 function Logo({ brand, tagline }: { brand: string; tagline: string }) {
@@ -23,6 +24,7 @@ function Logo({ brand, tagline }: { brand: string; tagline: string }) {
 function IconSearch() { return (<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>); }
 function IconUser() { return (<svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0" /><circle cx="12" cy="7" r="4" /></svg>); }
 function IconBag() { return (<svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><path d="M3 6h18" /><path d="M16 10a4 4 0 0 1-8 0" /></svg>); }
+function IconHeart() { return (<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C.7 9 1.6 5.7 4.6 4.8c2-.6 3.9.3 4.9 1.9 1-1.6 2.9-2.5 4.9-1.9 3 .9 3.9 4.2 2.6 7C19.5 16.4 12 21 12 21z" /></svg>); }
 function IconMenu() { return (<svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" /></svg>); }
 function IconClose() { return (<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>); }
 
@@ -78,6 +80,7 @@ export default function SiteHeader({
   const [search, setSearch] = useState(false);
   const [q, setQ] = useState("");
   const { count } = useCart();
+  const { count: favCount } = useFavorites();
 
   function submitSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -109,6 +112,10 @@ export default function SiteHeader({
 
         <div className="nav-icons">
           <button aria-label="Buscar" onClick={() => setSearch((s) => !s)}><IconSearch /></button>
+          <Link href="/favoritos" aria-label="Favoritos" style={{ position: "relative" }}>
+            <IconHeart />
+            {favCount > 0 && <span className="cart-badge">{favCount}</span>}
+          </Link>
           <Link href="/admin" aria-label="Cuenta" className="hide-mobile"><IconUser /></Link>
           <Link href="/carrito" aria-label="Carrito" style={{ position: "relative" }}>
             <IconBag />

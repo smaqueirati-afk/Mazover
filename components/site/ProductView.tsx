@@ -7,6 +7,7 @@ import type { Product, Settings, ProductColor } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
 import { buildProductWhatsAppLink } from "@/lib/whatsapp";
 import { useCart } from "@/lib/cart";
+import FavButton from "./FavButton";
 
 type SizeGuide = { name: string; columns: string[]; rows: string[][] } | null;
 
@@ -99,7 +100,10 @@ export default function ProductView({
 
       {/* INFO */}
       <div className="pdp-info">
-        <h1>{product.name}</h1>
+        <div className="pdp-title-row">
+          <h1>{product.name}</h1>
+          <FavButton slug={product.slug} variant="inline" />
+        </div>
         <div className="pdp-meta">
           {product.fit?.name ? `${product.fit.name} Fit` : product.category?.name}
           {color?.sku_base && ` · SKU ${selectedVariant?.sku ?? color.sku_base}`}
