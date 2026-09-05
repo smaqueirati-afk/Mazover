@@ -1,6 +1,7 @@
 -- ============================================================================
 -- MAZOVER · SETUP COMPLETO (pegar todo en el SQL Editor de Supabase y ejecutar)
 -- Generado a partir de schema.sql + policies.sql + storage.sql + seed.sql
+-- Idempotente: se puede re-ejecutar sin errores.
 -- ============================================================================
 
 -- >>>>>>>>>> 1) SCHEMA <<<<<<<<<<
@@ -88,6 +89,7 @@ create table if not exists public.settings (
   currency_symbol    text not null default '$',
   updated_at         timestamptz not null default now()
 );
+drop trigger if exists settings_updated on public.settings;
 create trigger settings_updated before update on public.settings
   for each row execute function public.set_updated_at();
 
@@ -107,6 +109,7 @@ create table if not exists public.content_blocks (
   updated_at  timestamptz not null default now()
 );
 create index if not exists content_blocks_section_idx on public.content_blocks(section);
+drop trigger if exists content_blocks_updated on public.content_blocks;
 create trigger content_blocks_updated before update on public.content_blocks
   for each row execute function public.set_updated_at();
 
@@ -188,6 +191,7 @@ create table if not exists public.products (
 create index if not exists products_category_idx on public.products(category_id);
 create index if not exists products_fit_idx on public.products(fit_id);
 create index if not exists products_active_idx on public.products(is_active);
+drop trigger if exists products_updated on public.products;
 create trigger products_updated before update on public.products
   for each row execute function public.set_updated_at();
 
@@ -257,6 +261,7 @@ create table if not exists public.size_guides (
   is_active   boolean not null default true,
   updated_at  timestamptz not null default now()
 );
+drop trigger if exists size_guides_updated on public.size_guides;
 create trigger size_guides_updated before update on public.size_guides
   for each row execute function public.set_updated_at();
 
