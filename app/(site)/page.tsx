@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import Image from "next/image";
-import { getContent, getSettings, getFeaturedProducts, getReels } from "@/lib/data";
+import { getContent, getSettings, getFeaturedProducts, getReels, getAllProducts } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 import SolButton from "@/components/site/SolButton";
 import NewsletterForm from "@/components/site/NewsletterForm";
+import ProductCarousel from "@/components/site/ProductCarousel";
 import type { Product } from "@/lib/types";
 
 const Arrow = () => (
@@ -60,11 +61,12 @@ function ProductEditorial({ p, variant, symbol, ctaLabel, cuotasN }: { p: Produc
 }
 
 export default async function HomePage() {
-  const [content, settings, products, reels] = await Promise.all([
+  const [content, settings, products, reels, allProducts] = await Promise.all([
     getContent(),
     getSettings(),
     getFeaturedProducts(),
     getReels(),
+    getAllProducts(),
   ]);
 
   const t = (k: string) => content[k]?.value ?? "";
@@ -181,6 +183,16 @@ export default async function HomePage() {
           <p className="note">Precios de ejemplo · editables desde el panel</p>
         </div>
       </section>
+
+      {/* CARRUSEL */}
+      <ProductCarousel
+        products={allProducts}
+        eyebrow={t("home.carousel.eyebrow")}
+        title={t("home.carousel.title")}
+        linkHref="/productos"
+        linkLabel={t("home.carousel.link") || "Ver más"}
+        symbol={symbol}
+      />
 
       {/* REELS */}
       <section className="section reels">

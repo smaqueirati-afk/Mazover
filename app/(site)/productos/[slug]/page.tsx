@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getSettings, getSizeGuide, getAllProducts, getContent } from "@/lib/data";
 import ProductView from "@/components/site/ProductView";
-import ProductCard from "@/components/site/ProductCard";
+import ProductCarousel from "@/components/site/ProductCarousel";
 
 export async function generateMetadata({
   params,
@@ -74,16 +74,14 @@ export default async function ProductPage({
       <ProductView product={product} settings={settings} sizeGuide={sizeGuide} shipTitle={shipTitle} shipBody={shipBody} />
 
       {related.length > 0 && (
-        <section className="section coll">
-          <div className="wrap">
-            <div className="coll-head">
-              <div><span className="eyebrow">Seguí mirando</span><h2>También te puede gustar</h2></div>
-            </div>
-            <div className="grid-products">
-              {related.map((p) => <ProductCard key={p.id} p={p} symbol={settings.currency_symbol} />)}
-            </div>
-          </div>
-        </section>
+        <ProductCarousel
+          products={related}
+          eyebrow="Seguí mirando"
+          title="También te puede gustar"
+          linkHref="/productos"
+          linkLabel="Ver toda la colección"
+          symbol={settings.currency_symbol}
+        />
       )}
     </>
   );
