@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { updateSettings, type ActionState } from "./actions";
 import type { Settings } from "@/lib/types";
 import { PALETTES } from "@/lib/palettes";
@@ -16,6 +16,7 @@ function Field({ name, label, def, type = "text", full }: { name: string; label:
 
 export default function SettingsForm({ settings }: { settings: Settings }) {
   const [state, action, pending] = useActionState<ActionState, FormData>(updateSettings, null);
+  const [pal, setPal] = useState(settings.palette || "heritage");
 
   return (
     <form action={action}>
@@ -45,13 +46,14 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
       <div className="adm-card" style={{ marginBottom: 20 }}>
         <h3 style={{ fontFamily: "var(--oswald)", textTransform: "uppercase", marginBottom: 6 }}>Paleta de colores</h3>
         <p style={{ fontSize: 13, color: "var(--gris)", marginBottom: 16 }}>Elegí una combinación. Se aplica a todo el sitio al guardar.</p>
+        <input type="hidden" name="palette" value={pal} />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 12 }}>
           {PALETTES.map((p) => {
             const t = p.tokens;
-            const active = (settings.palette || "heritage") === p.key;
+            const active = pal === p.key;
             return (
-              <label key={p.key} style={{ display: "block", cursor: "pointer", border: `2px solid ${active ? "var(--azul-profundo)" : "rgba(13,19,38,.15)"}`, borderRadius: 10, overflow: "hidden", background: "#fff" }}>
-                <input type="radio" name="palette" value={p.key} defaultChecked={active} style={{ position: "absolute", opacity: 0, pointerEvents: "none" }} />
+              <button type="button" key={p.key} onClick={() => setPal(p.key)} aria-pressed={active}
+                style={{ textAlign: "left", cursor: "pointer", padding: 0, border: `2px solid ${active ? "var(--azul-profundo)" : "rgba(13,19,38,.15)"}`, borderRadius: 10, overflow: "hidden", background: "#fff", boxShadow: active ? "0 6px 18px -10px rgba(13,19,38,.5)" : "none" }}>
                 <div style={{ display: "flex", height: 46 }}>
                   <span style={{ flex: 2, background: t.noche }} />
                   <span style={{ flex: 1, background: t.papel }} />
@@ -65,7 +67,7 @@ export default function SettingsForm({ settings }: { settings: Settings }) {
                   </div>
                   <div style={{ fontSize: 12, color: "var(--gris)", marginTop: 3, lineHeight: 1.4 }}>{p.desc}</div>
                 </div>
-              </label>
+              </button>
             );
           })}
         </div>
