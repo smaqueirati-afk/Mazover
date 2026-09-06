@@ -96,6 +96,7 @@ export default async function HomePage() {
   const symbol = settings.currency_symbol;
   const marquee = t("home.marquee.items").split("|").filter(Boolean);
   const features = [1, 2, 3, 4].map((n, i) => ({ i, title: t(`home.features.${n}.title`), body: t(`home.features.${n}.body`) }));
+  const frases = [t("home.frases.1"), t("home.frases.2"), t("home.frases.3")].filter(Boolean);
   const philoParas = t("home.philo.body").split("\n\n");
   const waLink = buildWhatsAppLink(settings, []);
   const cuotasN = parseInt(t("home.product.cuotas"), 10) || 3;
@@ -250,14 +251,19 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* FRASES */}
-      <section className="frases">
-        <div className="wrap">
-          <div className="line"><SolButton size={20} /><h3>{t("home.frases.1")}</h3><SolButton size={20} /></div>
-          <div className="hr" />
-          <div className="line"><h3>{t("home.frases.2")}</h3></div>
-          <div className="hr" />
-          <div className="line"><SolButton size={20} /><h3>{t("home.frases.3")}</h3><SolButton size={20} /></div>
+      {/* FRASES — marquesina premium (tipografía grande, relleno + contorno) */}
+      <section className="frases-marquee" aria-label="Frases de marca">
+        <div className="fm-track">
+          {[...frases, ...frases].map((f, i) => {
+            const idx = i % frases.length;
+            const dup = i >= frases.length;
+            return (
+              <span className="fm-item" key={i} aria-hidden={dup || undefined}>
+                <span className={`fm-text${idx % 2 === 1 ? " outline" : ""}`}>{f}</span>
+                <SolButton size={26} />
+              </span>
+            );
+          })}
         </div>
       </section>
 
