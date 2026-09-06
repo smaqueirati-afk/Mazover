@@ -40,13 +40,24 @@ export default function ProductEditor({ product, tax }: { product: AdminProduct 
       </div>
 
       <div className="adm-tabs">
-        {TABS.map((t) => (
-          <button key={t} className={`adm-tab ${tab === t ? "on" : ""}`} onClick={() => setTab(t)}
-            disabled={isNew && t !== "Info" && t !== "SEO"}>
-            {t}
-          </button>
-        ))}
+        {TABS.map((t) => {
+          const locked = isNew && t !== "Info" && t !== "SEO";
+          return (
+            <button
+              key={t}
+              className={`adm-tab ${tab === t ? "on" : ""}`}
+              onClick={() => setTab(t)}
+              disabled={locked}
+              title={locked ? "Guardá la información primero para habilitar esta pestaña" : undefined}
+            >
+              {t}{locked ? " 🔒" : ""}
+            </button>
+          );
+        })}
       </div>
+      {isNew && (
+        <p className="adm-tabs-hint">🔒 Guardá la <strong>Info</strong> para habilitar Colores, Stock e Imágenes.</p>
+      )}
 
       {/* INFO + SEO comparten un form */}
       <form action={action}>

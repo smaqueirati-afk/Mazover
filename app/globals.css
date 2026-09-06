@@ -421,6 +421,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--rojo); outline-
 .adm-tabs { display: flex; gap: 4px; border-bottom: 1px solid rgba(13,19,38,.12); margin-bottom: 24px; flex-wrap: wrap; }
 .adm-tab { font-family: var(--oswald); text-transform: uppercase; font-size: 12px; letter-spacing: .08em; padding: 12px 16px; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--gris); cursor: pointer; }
 .adm-tab.on { color: var(--azul-profundo); border-bottom-color: var(--rojo); }
+.adm-tab:disabled { opacity: .4; cursor: not-allowed; }
+.adm-tabs-hint { font-size: 12.5px; color: var(--gris); margin: -14px 0 22px; }
 .adm-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
 .adm-field label { font-family: var(--oswald); text-transform: uppercase; font-size: 11px; letter-spacing: .08em; color: var(--gris); }
 .adm-input, .adm-textarea, .adm-select { font-family: var(--mont); font-size: 14px; padding: 10px 12px; border: 1px solid rgba(13,19,38,.2); border-radius: 4px; background: #fff; color: var(--azul-profundo); width: 100%; }
